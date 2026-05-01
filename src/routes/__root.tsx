@@ -34,6 +34,12 @@ export const Route = createRootRoute({
       { name: "author", content: "Pixel2Align" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Pixel2Align — Premium Web & UI Design" },
+      { name: "twitter:title", content: "Pixel2Align — Premium Web & UI Design" },
+      { property: "og:description", content: "Web & UI Designer crafting premium, conversion-focused websites for ambitious brands." },
+      { name: "twitter:description", content: "Web & UI Designer crafting premium, conversion-focused websites for ambitious brands." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/253478f3-54a4-4017-90a2-ff449456ed5e/id-preview-29b77cc9--92dfacf6-bc7d-48ee-aefe-061755d9d951.lovable.app-1777635977234.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/253478f3-54a4-4017-90a2-ff449456ed5e/id-preview-29b77cc9--92dfacf6-bc7d-48ee-aefe-061755d9d951.lovable.app-1777635977234.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
