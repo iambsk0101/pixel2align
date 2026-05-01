@@ -1,5 +1,9 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Navbar } from "@/components/Navbar";
+import { TitleBar } from "@/components/ide/TitleBar";
+import { Sidebar } from "@/components/ide/Sidebar";
+import { EditorTabs, Breadcrumb } from "@/components/ide/EditorTabs";
+import { StatusBar } from "@/components/ide/StatusBar";
 import { Hero } from "@/components/sections/Hero";
 import { Marquee } from "@/components/sections/Marquee";
 import { About } from "@/components/sections/About";
@@ -18,13 +22,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Pixel2Align is a Web & UI Design studio crafting premium, conversion-focused websites for hospitality, ecommerce and high-growth brands.",
+          "Pixel2Align is a premium Web & UI design studio. Editorial design, conversion strategy, and pixel-precise builds for brands that refuse to look ordinary.",
       },
       { property: "og:title", content: "Pixel2Align — Premium Web & UI Design" },
       {
         property: "og:description",
         content:
-          "Conversion-focused websites and brand experiences. 6+ years designing for luxury hospitality, ecommerce and SaaS.",
+          "Conversion-focused websites and brand experiences. Hospitality, ecommerce, SaaS.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -34,19 +38,37 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const [active, setActive] = useState("hero");
+
+  const select = (id: string) => {
+    setActive(id);
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      <Navbar />
-      <Hero />
-      <Marquee />
-      <About />
-      <Work />
-      <Skills />
-      <Process />
-      <Testimonials />
-      <Contact />
-      <Footer />
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
+      <TitleBar />
+      <div className="flex-1 flex min-h-0">
+        <Sidebar active={active} onSelect={select} />
+        <main className="flex-1 min-w-0 flex flex-col bg-editor">
+          <EditorTabs active={active} onSelect={select} />
+          <Breadcrumb active={active} />
+          <div className="flex-1">
+            <Hero />
+            <Marquee />
+            <About />
+            <Work />
+            <Skills />
+            <Process />
+            <Testimonials />
+            <Contact />
+            <Footer />
+          </div>
+        </main>
+      </div>
+      <StatusBar active={active} />
       <Toaster position="bottom-right" />
-    </main>
+    </div>
   );
 }

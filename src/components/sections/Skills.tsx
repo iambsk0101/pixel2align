@@ -1,44 +1,47 @@
-import { Reveal } from "@/components/Reveal";
+import { EditorPane, Reveal } from "@/components/ide/EditorPane";
 
-const skills = [
-  "UI / UX Design",
-  "Website Design",
-  "Landing Page Design",
-  "Conversion Optimization",
-  "Branding & Visual Identity",
-];
+const skills = {
+  design: ["Figma", "Framer", "Webflow", "Adobe XD", "Photoshop", "Illustrator"],
+  craft: ["UI Design", "Web Design", "Brand Identity", "Design Systems", "Prototyping", "Motion"],
+  strategy: ["Conversion Strategy", "User Research", "Information Architecture", "A/B Testing"],
+  build: ["HTML / CSS", "Tailwind", "Shopify", "WordPress", "No-code stacks"],
+};
 
 export function Skills() {
   return (
-    <section id="skills" className="py-28 md:py-36 bg-foreground text-background">
-      <div className="mx-auto max-w-7xl px-6">
-        <Reveal>
-          <div className="text-xs uppercase tracking-[0.25em] text-background/60">✦ Capabilities</div>
-        </Reveal>
-        <Reveal delay={80}>
-          <h2 className="mt-4 text-4xl md:text-6xl font-bold tracking-tight text-balance max-w-3xl">
-            What I do — done <span className="italic text-accent">exceptionally well.</span>
-          </h2>
-        </Reveal>
+    <EditorPane id="skills" lines={28}>
+      <div className="font-mono text-sm syntax-comment">// skills.json</div>
 
-        <ul className="mt-16 divide-y divide-background/15 border-y border-background/15">
-          {skills.map((s, i) => (
-            <Reveal as="li" key={s} delay={i * 60}>
-              <div className="group flex items-center justify-between py-7 md:py-9 cursor-default">
-                <div className="flex items-center gap-6">
-                  <span className="font-mono text-sm text-background/50">0{i + 1}</span>
-                  <span className="font-display text-2xl md:text-4xl font-medium transition-colors group-hover:text-accent">
-                    {s}
-                  </span>
-                </div>
-                <span className="opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-accent text-2xl">
-                  →
-                </span>
+      <Reveal>
+        <h2 className="mt-6 font-display uppercase leading-[0.9] text-[clamp(2.2rem,7vw,5rem)]">
+          The toolkit, <span className="text-accent">honed.</span>
+        </h2>
+      </Reveal>
+
+      <div className="mt-12 grid md:grid-cols-2 gap-6 font-mono text-sm">
+        {Object.entries(skills).map(([cat, items], i) => (
+          <Reveal key={cat} delay={i * 80}>
+            <div className="rounded-md border border-border bg-surface p-6">
+              <div className="text-xs uppercase tracking-[0.25em] text-muted-foreground mb-4">
+                <span className="syntax-keyword">"</span>
+                <span className="syntax-fn">{cat}</span>
+                <span className="syntax-keyword">"</span>: [
               </div>
-            </Reveal>
-          ))}
-        </ul>
+              <div className="flex flex-wrap gap-2">
+                {items.map((s) => (
+                  <span
+                    key={s}
+                    className="px-3 py-1.5 rounded border border-border bg-background hover:border-accent hover:text-accent transition-colors"
+                  >
+                    <span className="syntax-string">"{s}"</span>
+                  </span>
+                ))}
+              </div>
+              <div className="mt-4 syntax-keyword">],</div>
+            </div>
+          </Reveal>
+        ))}
       </div>
-    </section>
+    </EditorPane>
   );
 }
