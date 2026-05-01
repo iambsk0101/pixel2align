@@ -1,98 +1,119 @@
-import { motion } from "framer-motion";
+import { EditorPane, Reveal } from "@/components/ide/EditorPane";
 
 export function Hero() {
   return (
-    <section id="top" className="relative pt-36 md:pt-44 pb-24 md:pb-32 overflow-hidden">
-      {/* ambient blobs */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-accent/20 blur-3xl animate-[blob_14s_ease-in-out_infinite]" />
-        <div className="absolute top-40 -right-32 h-[28rem] w-[28rem] rounded-full bg-brand/10 blur-3xl animate-[blob_18s_ease-in-out_infinite]" />
-        <div className="absolute inset-0 grain opacity-[0.25]" />
+    <EditorPane id="hero" lines={28}>
+      <div className="font-mono text-sm syntax-comment mb-6">
+        // hello world !! welcome to the studio of —
       </div>
 
-      <div className="mx-auto max-w-7xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-surface/60 backdrop-blur text-xs font-medium text-muted-foreground"
-        >
-          <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-          Available for select projects · 2026
-        </motion.div>
-
-        <h1 className="mt-8 text-[clamp(2.6rem,7.5vw,6.75rem)] font-bold leading-[0.95] tracking-tight text-balance">
-          <motion.span
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.05 }}
-            className="block"
-          >
-            I design experiences
-          </motion.span>
-          <motion.span
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.18 }}
-            className="block"
-          >
-            that <span className="italic font-display text-accent">convert</span>
-            <span className="text-muted-foreground"> &amp; </span>
-            <span className="italic font-display">inspire.</span>
-          </motion.span>
+      <Reveal>
+        <h1 className="font-display uppercase tracking-tight leading-[0.85] text-[clamp(3rem,12vw,9.5rem)]">
+          Pixel<span className="text-accent">2</span>
+          <br />
+          <span className="text-accent">Align</span>
         </h1>
+      </Reveal>
 
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.35 }}
-          className="mt-8 max-w-xl text-lg md:text-xl text-muted-foreground text-pretty"
-        >
-          Web &amp; UI Designer crafting premium, conversion-focused websites for
-          brands that refuse to look ordinary.
-        </motion.p>
+      <Reveal delay={120}>
+        <div className="mt-8 flex flex-wrap gap-2">
+          {["Web Designer", "UI Designer", "Conversion Strategist", "@ Studio · 2026"].map((b, i) => (
+            <span
+              key={b}
+              className="font-mono text-xs px-3 py-2 rounded border border-border bg-surface/60"
+            >
+              <span
+                className="inline-block w-1.5 h-1.5 rounded-full mr-2 align-middle"
+                style={{
+                  background:
+                    ["#22c55e", "#06b6d4", "#a855f7", "var(--accent)"][i] ?? "var(--accent)",
+                }}
+              />
+              {b}
+            </span>
+          ))}
+        </div>
+      </Reveal>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5 }}
-          className="mt-10 flex flex-wrap items-center gap-4"
-        >
+      <Reveal delay={220}>
+        <div className="mt-8 font-mono text-base">
+          <span className="syntax-keyword">const </span>
+          <span className="syntax-fn">mission</span>
+          <span className="syntax-comment"> = </span>
+          <span className="syntax-string">"Designing premium websites that convert"</span>
+          <span className="caret" />
+        </div>
+      </Reveal>
+
+      <Reveal delay={300}>
+        <p className="mt-10 max-w-2xl text-lg md:text-xl text-muted-foreground text-pretty">
+          I live at the crossroads of <span className="syntax-keyword font-mono">brand</span>,{" "}
+          <span className="syntax-fn font-mono">interface</span> and{" "}
+          <span className="syntax-string font-mono">conversion</span>. I build websites that look
+          editorial and perform like product.
+        </p>
+      </Reveal>
+
+      <Reveal delay={380}>
+        <div className="mt-10 flex flex-wrap gap-3">
           <a
-            href="#work"
-            className="group inline-flex items-center gap-3 px-7 py-4 rounded-full bg-foreground text-background font-medium hover:bg-accent hover:text-accent-foreground transition-all duration-300"
+            href="#projects"
+            className="group inline-flex items-center gap-3 px-6 py-3 rounded-md bg-accent text-accent-foreground font-mono text-sm font-semibold hover:translate-y-[-2px] transition-transform"
           >
-            View Work
+            <span>📁</span> Projects
             <span className="transition-transform group-hover:translate-x-1">→</span>
           </a>
           <a
-            href="#contact"
-            className="inline-flex items-center gap-3 px-7 py-4 rounded-full border border-foreground/20 hover:border-foreground font-medium transition-colors"
+            href="#about"
+            className="inline-flex items-center gap-3 px-6 py-3 rounded-md border border-border bg-surface font-mono text-sm hover:border-accent transition-colors"
           >
-            Contact Me
+            <span>👤</span> About Me
           </a>
-        </motion.div>
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-3 px-6 py-3 rounded-md border border-border bg-surface font-mono text-sm hover:border-accent transition-colors"
+          >
+            <span>✉</span> Contact
+          </a>
+        </div>
+      </Reveal>
 
-        {/* stats strip */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.7 }}
-          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 border-t border-border pt-10"
-        >
+      <Reveal delay={500}>
+        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 rounded-md border border-border overflow-hidden bg-surface/40">
           {[
-            ["6+", "Years designing"],
-            ["40+", "Brands shipped"],
-            ["9", "Featured projects"],
-            ["100%", "Client retention"],
-          ].map(([k, v]) => (
-            <div key={v}>
-              <div className="text-3xl md:text-4xl font-display font-semibold tracking-tight">{k}</div>
-              <div className="mt-1 text-sm text-muted-foreground">{v}</div>
+            ["6+", "Years"],
+            ["40+", "Projects"],
+            ["100%", "Retention"],
+            ["↑", "Always shipping"],
+          ].map(([k, v], i) => (
+            <div
+              key={v}
+              className={`p-6 md:p-8 text-center ${i < 3 ? "border-r border-border" : ""} ${
+                i < 2 ? "border-b border-border md:border-b-0" : ""
+              }`}
+            >
+              <div className="font-display text-4xl md:text-5xl">{k}</div>
+              <div className="mt-2 text-[11px] tracking-[0.25em] uppercase font-mono text-muted-foreground">
+                {v}
+              </div>
             </div>
           ))}
-        </motion.div>
-      </div>
-    </section>
+        </div>
+      </Reveal>
+
+      <Reveal delay={600}>
+        <div className="mt-10 flex flex-wrap gap-2 font-mono text-xs">
+          {["GitHub", "LinkedIn", "Dribbble", "Behance", "Instagram", "Email"].map((s) => (
+            <a
+              key={s}
+              href="#contact"
+              className="px-4 py-2 rounded border border-border bg-surface/60 hover:border-accent hover:text-accent transition-colors"
+            >
+              ▸ {s}
+            </a>
+          ))}
+        </div>
+      </Reveal>
+    </EditorPane>
   );
 }

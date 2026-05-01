@@ -1,49 +1,59 @@
-import { Reveal } from "@/components/Reveal";
+import { EditorPane, Reveal } from "@/components/ide/EditorPane";
 
 export function About() {
   return (
-    <section id="about" className="py-28 md:py-40">
-      <div className="mx-auto max-w-7xl px-6 grid md:grid-cols-12 gap-12">
-        <div className="md:col-span-4">
-          <Reveal>
-            <div className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
-              ✦ About
-            </div>
-          </Reveal>
-        </div>
-        <div className="md:col-span-8">
-          <Reveal delay={80}>
-            <h2 className="text-4xl md:text-6xl font-bold leading-[1.05] tracking-tight text-balance">
-              I'm a designer obsessed with the space between
-              <span className="text-accent"> beauty</span> and
-              <span className="italic font-display"> business outcomes.</span>
-            </h2>
-          </Reveal>
-          <Reveal delay={180}>
-            <p className="mt-8 text-lg text-muted-foreground max-w-2xl text-pretty">
-              For over 6 years I've partnered with luxury hospitality brands,
-              boutique studios, and ambitious founders to design websites that
-              don't just look premium — they perform. Clean UI, intentional
-              typography, and a relentless focus on conversion.
-            </p>
-          </Reveal>
-
-          <div className="mt-12 grid sm:grid-cols-3 gap-6">
-            {[
-              ["Clean UI", "Restraint over decoration. Every pixel earns its place."],
-              ["Luxury Feel", "Editorial layouts, refined motion, premium materials."],
-              ["Conversion First", "Designs informed by behaviour, not assumptions."],
-            ].map(([title, body], i) => (
-              <Reveal key={title} delay={240 + i * 80}>
-                <div className="p-6 rounded-2xl bg-surface border border-border h-full">
-                  <div className="text-sm font-display font-semibold">{title}</div>
-                  <p className="mt-2 text-sm text-muted-foreground">{body}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+    <EditorPane id="about" lines={26} lineStart={1}>
+      <div className="font-mono text-sm">
+        <div className="syntax-comment">{"<!-- about.html · who is behind Pixel2Align -->"}</div>
+        <div className="mt-2">
+          <span className="syntax-tag">{"<section "}</span>
+          <span className="syntax-fn">class</span>
+          <span className="syntax-comment">=</span>
+          <span className="syntax-string">"about"</span>
+          <span className="syntax-tag">{">"}</span>
         </div>
       </div>
-    </section>
+
+      <Reveal>
+        <h2 className="mt-8 font-display uppercase leading-[0.9] text-[clamp(2.4rem,7vw,5.5rem)]">
+          A studio for brands
+          <br />
+          that refuse to look
+          <br />
+          <span className="text-accent">ordinary.</span>
+        </h2>
+      </Reveal>
+
+      <Reveal delay={120}>
+        <div className="mt-12 grid lg:grid-cols-12 gap-10">
+          <div className="lg:col-span-7 space-y-6 text-lg text-muted-foreground text-pretty">
+            <p>
+              Pixel2Align is a one-designer studio working at the intersection of editorial
+              design, product thinking, and conversion strategy. Six years in, we've shipped 40+
+              websites for hospitality, ecommerce, and ambitious founders.
+            </p>
+            <p>
+              We don't ship templates. Every project starts with a positioning workshop, a custom
+              type system, and a layout grid built for the brand — not for the framework.
+            </p>
+          </div>
+          <div className="lg:col-span-5">
+            <div className="rounded-md border border-border bg-surface p-6 font-mono text-sm">
+              <div className="syntax-comment">// principles.json</div>
+              <pre className="mt-3 whitespace-pre-wrap leading-7">
+{`{
+  "`}<span className="syntax-keyword">restraint</span>{`":   `}<span className="syntax-string">"every pixel earns its place"</span>{`,
+  "`}<span className="syntax-keyword">hierarchy</span>{`":   `}<span className="syntax-string">"typography does the work"</span>{`,
+  "`}<span className="syntax-keyword">motion</span>{`":      `}<span className="syntax-string">"intentional, never decorative"</span>{`,
+  "`}<span className="syntax-keyword">conversion</span>{`":  `}<span className="syntax-string">"design informed by data"</span>{`
+}`}
+              </pre>
+            </div>
+          </div>
+        </div>
+      </Reveal>
+
+      <div className="mt-10 font-mono text-sm syntax-tag">{"</section>"}</div>
+    </EditorPane>
   );
 }
