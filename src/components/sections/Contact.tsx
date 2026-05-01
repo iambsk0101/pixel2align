@@ -1,84 +1,115 @@
-import { useState, type FormEvent } from "react";
-import { Reveal } from "@/components/Reveal";
+import { useState } from "react";
+import { EditorPane, Reveal } from "@/components/ide/EditorPane";
 import { toast } from "sonner";
 
 export function Contact() {
-  const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSent(true);
-    toast.success("Thanks — I'll be in touch within 24 hours.");
-    (e.target as HTMLFormElement).reset();
-    setTimeout(() => setSent(false), 3000);
-  }
+    setSending(true);
+    setTimeout(() => {
+      setSending(false);
+      toast.success("Message sent. I'll reply within 24h.");
+      (e.target as HTMLFormElement).reset();
+    }, 800);
+  };
 
   return (
-    <section id="contact" className="py-28 md:py-40 relative overflow-hidden">
-      <div aria-hidden className="absolute -top-40 left-1/2 -translate-x-1/2 h-96 w-[40rem] rounded-full bg-accent/15 blur-3xl -z-10" />
-      <div className="mx-auto max-w-5xl px-6 text-center">
-        <Reveal>
-          <div className="text-xs uppercase tracking-[0.25em] text-muted-foreground">✦ Contact</div>
-        </Reveal>
-        <Reveal delay={80}>
-          <h2 className="mt-6 text-5xl md:text-7xl font-bold tracking-tight text-balance">
-            Let's build something <span className="italic font-display text-accent">premium.</span>
-          </h2>
-        </Reveal>
-        <Reveal delay={140}>
-          <p className="mt-6 text-lg text-muted-foreground max-w-xl mx-auto">
-            Tell me about your brand and what you're trying to ship. I respond
-            within 24 hours.
-          </p>
-        </Reveal>
+    <EditorPane id="contact" lines={30}>
+      <div className="font-mono text-sm syntax-comment"># contact.md</div>
 
-        <Reveal delay={200}>
+      <Reveal>
+        <h2 className="mt-6 font-display uppercase leading-[0.85] text-[clamp(2.6rem,10vw,8rem)]">
+          Let's <span className="text-accent italic">align.</span>
+        </h2>
+      </Reveal>
+
+      <Reveal delay={120}>
+        <p className="mt-6 max-w-xl text-lg text-muted-foreground">
+          Booking 2026 projects. Tell me about the brand, the goal, and the timeline — I'll reply
+          within 24 hours.
+        </p>
+      </Reveal>
+
+      <div className="mt-12 grid lg:grid-cols-12 gap-10">
+        <Reveal delay={160} className="lg:col-span-7">
           <form
             onSubmit={onSubmit}
-            className="mt-12 grid md:grid-cols-2 gap-4 text-left"
+            className="rounded-md border border-border bg-surface p-6 md:p-8 space-y-5"
           >
-            <input
-              required
-              name="name"
-              placeholder="Your name"
-              className="px-5 py-4 rounded-2xl bg-surface border border-border focus:border-accent focus:outline-none transition-colors"
-            />
-            <input
-              required
-              type="email"
-              name="email"
-              placeholder="Email"
-              className="px-5 py-4 rounded-2xl bg-surface border border-border focus:border-accent focus:outline-none transition-colors"
-            />
-            <input
-              name="company"
-              placeholder="Company / Project"
-              className="md:col-span-2 px-5 py-4 rounded-2xl bg-surface border border-border focus:border-accent focus:outline-none transition-colors"
-            />
-            <textarea
-              required
-              name="message"
-              placeholder="Tell me about your project…"
-              rows={5}
-              className="md:col-span-2 px-5 py-4 rounded-2xl bg-surface border border-border focus:border-accent focus:outline-none transition-colors resize-none"
-            />
+            {[
+              { id: "name", label: "name", type: "text", placeholder: "Jane Cooper" },
+              { id: "email", label: "email", type: "email", placeholder: "jane@brand.com" },
+              { id: "company", label: "company", type: "text", placeholder: "Brand or studio" },
+            ].map((f) => (
+              <div key={f.id}>
+                <label htmlFor={f.id} className="block text-xs font-mono text-muted-foreground mb-2">
+                  <span className="syntax-keyword">const </span>
+                  <span className="syntax-fn">{f.label}</span>
+                  <span className="syntax-comment"> = </span>
+                </label>
+                <input
+                  id={f.id}
+                  type={f.type}
+                  required
+                  placeholder={f.placeholder}
+                  className="w-full bg-background border border-border rounded-md px-4 py-3 font-mono text-sm focus:outline-none focus:border-accent transition-colors"
+                />
+              </div>
+            ))}
+            <div>
+              <label htmlFor="brief" className="block text-xs font-mono text-muted-foreground mb-2">
+                <span className="syntax-keyword">const </span>
+                <span className="syntax-fn">brief</span>
+                <span className="syntax-comment"> = </span>
+              </label>
+              <textarea
+                id="brief"
+                required
+                rows={5}
+                placeholder="A few lines about the project, audience, and timeline."
+                className="w-full bg-background border border-border rounded-md px-4 py-3 font-mono text-sm focus:outline-none focus:border-accent transition-colors resize-none"
+              />
+            </div>
             <button
               type="submit"
-              disabled={sent}
-              className="md:col-span-2 mt-2 inline-flex items-center justify-center gap-3 px-7 py-4 rounded-full bg-foreground text-background font-medium hover:bg-accent hover:text-accent-foreground transition-all duration-300 disabled:opacity-60"
+              disabled={sending}
+              className="inline-flex items-center gap-3 px-6 py-3 rounded-md bg-accent text-accent-foreground font-mono text-sm font-semibold hover:translate-y-[-2px] transition-transform disabled:opacity-60"
             >
-              {sent ? "Sent ✓" : "Send message →"}
+              {sending ? "Sending..." : "▶ Run send()"}
             </button>
           </form>
         </Reveal>
 
-        <div className="mt-12 text-sm text-muted-foreground">
-          or email{" "}
-          <a className="story-link text-foreground" href="mailto:hello@pixel2align.com">
-            hello@pixel2align.com
-          </a>
-        </div>
+        <Reveal delay={220} className="lg:col-span-5">
+          <div className="space-y-4">
+            <div className="rounded-md border border-border bg-surface p-6 font-mono text-sm">
+              <div className="syntax-comment">// direct</div>
+              <a href="mailto:hello@pixel2align.com" className="block mt-3 text-lg hover:text-accent transition-colors break-all">
+                hello@pixel2align.com
+              </a>
+            </div>
+            <div className="rounded-md border border-border bg-surface p-6 font-mono text-sm">
+              <div className="syntax-comment">// availability</div>
+              <div className="mt-3 flex items-center gap-3">
+                <span className="h-2.5 w-2.5 rounded-full bg-accent animate-pulse" />
+                <span>Booking 2 projects · Q2 2026</span>
+              </div>
+            </div>
+            <div className="rounded-md border border-border bg-surface p-6 font-mono text-sm">
+              <div className="syntax-comment">// elsewhere</div>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {["Dribbble", "Behance", "LinkedIn", "Instagram"].map((s) => (
+                  <a key={s} href="#" className="px-3 py-1.5 rounded border border-border hover:border-accent hover:text-accent transition-colors">
+                    {s}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </div>
-    </section>
+    </EditorPane>
   );
 }

@@ -1,99 +1,112 @@
-import { Reveal } from "@/components/Reveal";
+import { useState } from "react";
+import { EditorPane, Reveal } from "@/components/ide/EditorPane";
 
 type Project = {
+  no: string;
   name: string;
   category: string;
-  blurb: string;
-  url: string;
-  hue: string; // gradient stops
   year: string;
+  blurb: string;
+  tags: string[];
+  hue: string;
+  url: string;
 };
 
 const projects: Project[] = [
-  { name: "Anugraha Bhimtal", category: "Hospitality · Luxury Resort", blurb: "An editorial resort site that turns lakeside calm into bookings.", url: "#", hue: "from-amber-200 to-orange-400", year: "2025" },
-  { name: "Dilip's Retreat", category: "Hospitality · Resort", blurb: "Warm, story-led design for a mountain retreat brand.", url: "#", hue: "from-rose-200 to-amber-300", year: "2025" },
-  { name: "The Moonlight Homestay", category: "Hospitality · Homestay", blurb: "Intimate, image-first layout that sells the experience first.", url: "#", hue: "from-indigo-300 to-violet-400", year: "2024" },
-  { name: "SpaceionDesign", category: "Branding · Interior Design", blurb: "Luxury identity & website for a high-end interior studio.", url: "#", hue: "from-stone-300 to-zinc-500", year: "2024" },
-  { name: "Adibaba Travels", category: "Travel · Booking", blurb: "A fast, trustworthy travel site built around clear CTAs.", url: "#", hue: "from-sky-300 to-teal-400", year: "2024" },
-  { name: "PH Store", category: "Ecommerce", blurb: "A polished storefront engineered for repeat purchase.", url: "#", hue: "from-fuchsia-300 to-pink-500", year: "2024" },
-  { name: "View2Value", category: "Business · SaaS", blurb: "A confident business site that positions value, not features.", url: "#", hue: "from-blue-300 to-indigo-500", year: "2025" },
-  { name: "View2Value Bio", category: "Funnel · Bio Link", blurb: "A bio link funnel optimised for one click, one outcome.", url: "#", hue: "from-emerald-300 to-teal-500", year: "2025" },
-  { name: "View2Value Convert", category: "Landing · Conversion", blurb: "A conversion landing page tuned for paid traffic.", url: "#", hue: "from-orange-300 to-red-500", year: "2025" },
+  { no: "01", name: "Anugraha Bhimtal", category: "Hospitality · Lakeside Resort", year: "2025", blurb: "An editorial resort site that turns lakeside calm into bookings. Bespoke type pairing and a slow, cinematic gallery.", tags: ["Web Design", "Branding", "CMS"], hue: "from-amber-300 via-orange-400 to-rose-500", url: "#" },
+  { no: "02", name: "Dilip's Retreat", category: "Hospitality · Mountain Retreat", year: "2025", blurb: "Warm, story-led design with parallax storytelling and a quiet booking flow.", tags: ["Web Design", "UX"], hue: "from-rose-300 via-amber-300 to-yellow-400", url: "#" },
+  { no: "03", name: "The Moonlight Homestay", category: "Hospitality · Homestay", year: "2024", blurb: "Intimate, image-first layout that sells the experience before the rooms.", tags: ["Brand", "Web Design"], hue: "from-indigo-400 via-violet-500 to-fuchsia-500", url: "#" },
+  { no: "04", name: "SpaceionDesign", category: "Branding · Interior Studio", year: "2024", blurb: "Luxury identity & website for a high-end interior studio. Editorial grid, gallery-first.", tags: ["Identity", "Web Design"], hue: "from-stone-300 via-zinc-400 to-slate-600", url: "#" },
+  { no: "05", name: "Adibaba Travels", category: "Travel · Booking Platform", year: "2024", blurb: "A fast, trustworthy travel site engineered around clear CTAs and proof.", tags: ["UX", "Conversion"], hue: "from-sky-300 via-cyan-400 to-teal-500", url: "#" },
+  { no: "06", name: "PH Store", category: "Ecommerce · Lifestyle", year: "2024", blurb: "A polished storefront engineered for repeat purchase and brand love.", tags: ["Ecommerce", "Shopify"], hue: "from-fuchsia-300 via-pink-400 to-rose-500", url: "#" },
+  { no: "07", name: "View2Value", category: "SaaS · Business Site", year: "2025", blurb: "A confident business site that positions value, not features. Bold type, restrained motion.", tags: ["Web Design", "Copy"], hue: "from-blue-400 via-indigo-500 to-violet-600", url: "#" },
+  { no: "08", name: "View2Value Bio", category: "Funnel · Bio Link", year: "2025", blurb: "A bio link funnel optimised for one click, one outcome.", tags: ["Funnel", "Mobile"], hue: "from-emerald-300 via-teal-400 to-cyan-500", url: "#" },
+  { no: "09", name: "View2Value Convert", category: "Landing · Paid Traffic", year: "2025", blurb: "A conversion landing page tuned for paid traffic and ruthless A/B iteration.", tags: ["CRO", "Landing"], hue: "from-orange-300 via-red-400 to-rose-600", url: "#" },
 ];
 
 export function Work() {
-  return (
-    <section id="work" className="py-28 md:py-36">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="flex items-end justify-between flex-wrap gap-6 mb-14">
-          <div>
-            <Reveal>
-              <div className="text-xs uppercase tracking-[0.25em] text-muted-foreground">✦ Selected Work</div>
-            </Reveal>
-            <Reveal delay={80}>
-              <h2 className="mt-4 text-4xl md:text-6xl font-bold tracking-tight text-balance">
-                Brands designed to <span className="italic font-display text-accent">perform.</span>
-              </h2>
-            </Reveal>
-          </div>
-          <Reveal delay={140}>
-            <p className="max-w-sm text-muted-foreground">
-              A glimpse at recent projects across hospitality, ecommerce and
-              high-conversion funnels.
-            </p>
-          </Reveal>
-        </div>
+  const [hover, setHover] = useState<number | null>(null);
 
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-          {projects.map((p, i) => (
-            <Reveal key={p.name} delay={(i % 2) * 80}>
-              <ProjectCard project={p} index={i} />
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
-    <a
-      href={project.url}
-      target="_blank"
-      rel="noreferrer"
-      className="group relative block overflow-hidden rounded-3xl border border-border bg-surface transition-all duration-500 hover:-translate-y-1 hover:shadow-[var(--shadow-glow)]"
-    >
-      <div className={`relative aspect-[16/10] overflow-hidden bg-gradient-to-br ${project.hue}`}>
-        <div className="absolute inset-0 grain opacity-30 mix-blend-overlay" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="font-display text-[12vw] md:text-[7vw] font-bold text-foreground/10 select-none transition-transform duration-700 group-hover:scale-110">
-            {String(index + 1).padStart(2, "0")}
-          </span>
-        </div>
-        <div className="absolute top-5 left-5 flex items-center gap-2">
-          <span className="px-3 py-1 rounded-full bg-background/80 backdrop-blur text-[11px] font-medium">
-            {project.category}
-          </span>
-        </div>
-        <div className="absolute top-5 right-5 text-xs font-mono text-foreground/70">
-          {project.year}
-        </div>
-        <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4">
-          <h3 className="font-display text-2xl md:text-3xl font-bold leading-tight">
-            {project.name}
-          </h3>
-          <span className="shrink-0 inline-flex items-center justify-center h-11 w-11 rounded-full bg-foreground text-background transition-transform duration-500 group-hover:rotate-45">
-            ↗
-          </span>
-        </div>
+    <EditorPane id="projects" lines={48}>
+      <div className="font-mono text-sm syntax-comment mb-2">// projects.js · selected work, 2024 — 2025</div>
+      <div className="font-mono text-sm">
+        <span className="syntax-keyword">export const </span>
+        <span className="syntax-fn">projects</span> = [
       </div>
-      <div className="p-6 flex items-center justify-between">
-        <p className="text-sm text-muted-foreground max-w-md text-pretty">
-          {project.blurb}
+
+      <Reveal>
+        <h2 className="mt-8 font-display uppercase leading-[0.88] text-[clamp(2.4rem,8vw,6.25rem)]">
+          Selected
+          <br />
+          <span className="text-accent italic">work.</span>
+        </h2>
+      </Reveal>
+
+      <Reveal delay={120}>
+        <p className="mt-6 max-w-xl text-muted-foreground text-lg">
+          Nine recent engagements across hospitality, ecommerce and high-conversion funnels. Hover
+          a row — open the case study.
         </p>
-        <span className="text-xs font-medium uppercase tracking-wider story-link">View Website</span>
+      </Reveal>
+
+      {/* Immersive list */}
+      <div
+        className="mt-14 border-y border-border"
+        onMouseLeave={() => setHover(null)}
+      >
+        {projects.map((p, i) => (
+          <Reveal key={p.no} delay={i * 40}>
+            <a
+              href={p.url}
+              onMouseEnter={() => setHover(i)}
+              className="group relative grid grid-cols-12 items-center gap-4 py-7 md:py-9 border-b border-border last:border-b-0 transition-colors"
+            >
+              <div className="col-span-2 md:col-span-1 font-mono text-xs text-muted-foreground">
+                {p.no}
+              </div>
+              <div className="col-span-7 md:col-span-5">
+                <h3
+                  className={`font-display uppercase leading-[0.95] text-[clamp(1.6rem,4.2vw,3.25rem)] transition-colors ${
+                    hover === i ? "text-accent" : "text-foreground"
+                  }`}
+                >
+                  {p.name}
+                </h3>
+              </div>
+              <div className="hidden md:block col-span-3 text-sm text-muted-foreground font-mono">
+                {p.category}
+              </div>
+              <div className="hidden md:flex col-span-2 justify-end gap-2 flex-wrap">
+                {p.tags.slice(0, 2).map((t) => (
+                  <span key={t} className="text-[10px] uppercase tracking-wider font-mono px-2 py-1 rounded border border-border">
+                    {t}
+                  </span>
+                ))}
+              </div>
+              <div className="col-span-3 md:col-span-1 flex items-center justify-end gap-3">
+                <span className="font-mono text-xs text-muted-foreground">{p.year}</span>
+                <span className="inline-flex items-center justify-center h-9 w-9 rounded-full border border-border group-hover:bg-accent group-hover:text-accent-foreground group-hover:border-accent transition-all duration-300 group-hover:rotate-45">
+                  ↗
+                </span>
+              </div>
+
+              {/* Floating preview swatch on hover (desktop) */}
+              <div
+                className={`pointer-events-none absolute right-24 top-1/2 -translate-y-1/2 hidden lg:block transition-all duration-500 ${
+                  hover === i ? "opacity-100 scale-100" : "opacity-0 scale-90"
+                }`}
+              >
+                <div className={`w-56 h-32 rounded-lg bg-gradient-to-br ${p.hue} shadow-2xl border border-white/10`}>
+                  <div className="w-full h-full grain opacity-30 rounded-lg" />
+                </div>
+              </div>
+            </a>
+          </Reveal>
+        ))}
       </div>
-    </a>
+
+      <div className="mt-8 font-mono text-sm">];</div>
+    </EditorPane>
   );
 }

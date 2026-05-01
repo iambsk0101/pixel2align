@@ -1,25 +1,18 @@
 const items = [
-  "UI Design",
-  "Web Design",
-  "Conversion",
-  "Branding",
-  "Landing Pages",
-  "Luxury",
-  "Hospitality",
-  "Ecommerce",
+  "Web Design", "UI / UX", "Brand Identity", "Conversion", "Webflow", "Framer", "Shopify", "Design Systems", "Editorial",
 ];
 
 export function Marquee() {
   return (
-    <section aria-hidden className="py-10 border-y border-border bg-surface/40 overflow-hidden">
-      <div className="flex marquee-track whitespace-nowrap">
-        {[...items, ...items, ...items].map((t, i) => (
-          <span key={i} className="mx-10 inline-flex items-center gap-10 text-2xl md:text-4xl font-display font-medium text-muted-foreground">
+    <div className="border-y border-border bg-titlebar overflow-hidden">
+      <div className="flex marquee-track whitespace-nowrap py-5 font-display uppercase text-3xl md:text-5xl">
+        {[...items, ...items].map((t, i) => (
+          <span key={i} className="px-8 flex items-center gap-8">
             {t}
             <span className="text-accent">✦</span>
           </span>
         ))}
       </div>
-    </section>
+    </div>
   );
 }
