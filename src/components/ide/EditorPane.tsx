@@ -45,6 +45,12 @@ export function Reveal({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    // If already in viewport at mount, reveal immediately
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      const t = setTimeout(() => el.classList.add("in"), delay);
+      return () => clearTimeout(t);
+    }
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
