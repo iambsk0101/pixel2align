@@ -1,55 +1,74 @@
+import { useIde, FILES, FILE_ORDER, type FileId } from "./IdeContext";
 import { useState } from "react";
 
-const files = [
-  { name: "hero.tsx", icon: "⚛", target: "hero" },
-  { name: "about.html", icon: "🟧", target: "about" },
-  { name: "projects.js", icon: "🟨", target: "projects" },
-  { name: "skills.json", icon: "{ }", target: "skills" },
-  { name: "process.ts", icon: "🟦", target: "process" },
-  { name: "testimonials.css", icon: "🟪", target: "testimonials" },
-  { name: "contact.md", icon: "📄", target: "contact" },
-  { name: "Pixel2Align_Brief.pdf", icon: "📕", target: "contact" },
+const ACTIVITY = [
+  { id: "explorer", icon: "📁", label: "Explorer" },
+  { id: "search", icon: "🔍", label: "Search" },
+  { id: "git", icon: "⎇", label: "Source Control" },
+  { id: "run", icon: "▶", label: "Run" },
+  { id: "ext", icon: "▦", label: "Extensions" },
+  { id: "ai", icon: "✦", label: "Copilot" },
 ];
 
-export function Sidebar({ active, onSelect }: { active: string; onSelect: (t: string) => void }) {
-  const [collapsed, setCollapsed] = useState(false);
+export function Sidebar() {
+  const { sidebarOpen, openFile, activeTab, openSettings } = useIde();
+  const [activity, setActivity] = useState("explorer");
 
   return (
-    <aside className="hidden md:flex bg-sidebar border-r border-border">
-      <div className="w-12 border-r border-border flex flex-col items-center py-3 gap-4 text-muted-foreground">
-        {["📁", "🔍", "⎇", "▶", "⚙", "✦"].map((i, idx) => (
+    <aside className="hidden md:flex bg-sidebar border-r border-border select-none">
+      {/* Activity bar */}
+      <div className="w-12 border-r border-border flex flex-col items-center py-2 text-muted-foreground">
+        {ACTIVITY.map((a) => (
           <button
-            key={idx}
-            onClick={() => setCollapsed((v) => !v)}
-            className={`w-8 h-8 grid place-items-center rounded hover:text-foreground hover:bg-surface ${idx === 0 ? "text-accent border-l-2 border-accent" : ""}`}
+            key={a.id}
+            onClick={() => setActivity(a.id)}
+            title={a.label}
+            className={`w-12 h-11 grid place-items-center hover:text-foreground transition-colors relative ${
+              activity === a.id ? "text-foreground" : ""
+            }`}
           >
-            <span className="text-base">{i}</span>
+            {activity === a.id && (
+              <span className="absolute left-0 top-1.5 bottom-1.5 w-0.5 bg-accent" />
+            )}
+            <span className="text-lg">{a.icon}</span>
           </button>
         ))}
+        <div className="flex-1" />
+        <button
+          onClick={openSettings}
+          title="Settings"
+          className="w-12 h-11 grid place-items-center hover:text-foreground transition-colors text-lg"
+        >
+          ⚙
+        </button>
       </div>
 
-      {!collapsed && (
-        <div className="w-60 lg:w-64 py-3">
-          <div className="px-4 text-[11px] font-mono uppercase tracking-wider text-muted-foreground mb-2">
+      {sidebarOpen && (
+        <div className="w-60 lg:w-64 py-2 flex flex-col">
+          <div className="px-4 pt-2 pb-3 text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
             Portfolio
           </div>
-          <ul className="text-sm font-mono">
-            {files.map((f) => (
-              <li key={f.name}>
-                <button
-                  onClick={() => onSelect(f.target)}
-                  className={`w-full flex items-center gap-2 px-4 py-1.5 text-left hover:bg-surface/60 transition-colors ${
-                    active === f.target ? "bg-surface text-foreground" : "text-muted-foreground"
-                  }`}
-                >
-                  <span className="text-xs w-4 text-center">{f.icon}</span>
-                  <span className="truncate">{f.name}</span>
-                </button>
-              </li>
-            ))}
+          <ul className="text-[13px] font-mono">
+            {FILE_ORDER.map((id) => {
+              const f = FILES[id as FileId];
+              const isActive = activeTab === id;
+              return (
+                <li key={id}>
+                  <button
+                    onClick={() => openFile(id)}
+                    className={`w-full flex items-center gap-2 px-4 py-1 text-left hover:bg-surface/60 transition-colors ${
+                      isActive ? "bg-surface text-foreground" : "text-muted-foreground"
+                    }`}
+                  >
+                    <span className={`text-[10px] font-bold w-5 text-center ${f.iconColor}`}>{f.icon}</span>
+                    <span className="truncate">{f.name}</span>
+                  </button>
+                </li>
+              );
+            })}
           </ul>
 
-          <div className="mt-8 px-4">
+          <div className="mt-auto px-3 pb-3">
             <div className="rounded-md border border-border bg-surface/60 p-3">
               <div className="flex items-center gap-2 text-xs font-mono">
                 <span className="text-accent">✦</span>
