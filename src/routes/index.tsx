@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { IdeProvider, useIde, FILES } from "@/components/ide/IdeContext";
+import { IdeProvider, useIde } from "@/components/ide/IdeContext";
 import { TitleBar } from "@/components/ide/TitleBar";
 import { Sidebar } from "@/components/ide/Sidebar";
 import { EditorTabs, Breadcrumb } from "@/components/ide/EditorTabs";
