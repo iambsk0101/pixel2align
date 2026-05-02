@@ -1,8 +1,10 @@
 import { EditorPane, Reveal } from "@/components/ide/EditorPane";
+import { useIde } from "@/components/ide/IdeContext";
 
 export function Hero() {
+  const { openFile, openBrief } = useIde();
   return (
-    <EditorPane id="hero" lines={28}>
+    <EditorPane id="hero" lines={32}>
       <div className="font-mono text-sm syntax-comment mb-6">
         // hello world !! welcome to the studio of —
       </div>
@@ -24,10 +26,7 @@ export function Hero() {
             >
               <span
                 className="inline-block w-1.5 h-1.5 rounded-full mr-2 align-middle"
-                style={{
-                  background:
-                    ["#22c55e", "#06b6d4", "#a855f7", "var(--accent)"][i] ?? "var(--accent)",
-                }}
+                style={{ background: ["#22c55e", "#06b6d4", "#a855f7", "var(--accent)"][i] ?? "var(--accent)" }}
               />
               {b}
             </span>
@@ -47,70 +46,37 @@ export function Hero() {
 
       <Reveal delay={300}>
         <p className="mt-10 max-w-2xl text-lg md:text-xl text-muted-foreground text-pretty">
-          I live at the crossroads of <span className="syntax-keyword font-mono">brand</span>,{" "}
+          We live at the crossroads of <span className="syntax-keyword font-mono">brand</span>,{" "}
           <span className="syntax-fn font-mono">interface</span> and{" "}
-          <span className="syntax-string font-mono">conversion</span>. I build websites that look
-          editorial and perform like product.
+          <span className="syntax-string font-mono">conversion</span>. We build websites that look editorial and perform like product.
         </p>
       </Reveal>
 
       <Reveal delay={380}>
         <div className="mt-10 flex flex-wrap gap-3">
-          <a
-            href="#projects"
-            className="group inline-flex items-center gap-3 px-6 py-3 rounded-md bg-accent text-accent-foreground font-mono text-sm font-semibold hover:translate-y-[-2px] transition-transform"
-          >
+          <button onClick={() => openFile("projects")} className="group inline-flex items-center gap-3 px-6 py-3 rounded-md bg-accent text-accent-foreground font-mono text-sm font-semibold hover:translate-y-[-2px] transition-transform">
             <span>📁</span> Projects
             <span className="transition-transform group-hover:translate-x-1">→</span>
-          </a>
-          <a
-            href="#about"
-            className="inline-flex items-center gap-3 px-6 py-3 rounded-md border border-border bg-surface font-mono text-sm hover:border-accent transition-colors"
-          >
-            <span>👤</span> About Me
-          </a>
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-3 px-6 py-3 rounded-md border border-border bg-surface font-mono text-sm hover:border-accent transition-colors"
-          >
+          </button>
+          <button onClick={() => openFile("about")} className="inline-flex items-center gap-3 px-6 py-3 rounded-md border border-border bg-surface font-mono text-sm hover:border-accent transition-colors">
+            <span>👤</span> About
+          </button>
+          <button onClick={() => openFile("contact")} className="inline-flex items-center gap-3 px-6 py-3 rounded-md border border-border bg-surface font-mono text-sm hover:border-accent transition-colors">
             <span>✉</span> Contact
-          </a>
+          </button>
+          <button onClick={openBrief} className="inline-flex items-center gap-3 px-6 py-3 rounded-md border border-border bg-surface font-mono text-sm hover:border-accent transition-colors">
+            <span className="text-red-400 font-bold text-xs">PDF</span> Brief
+          </button>
         </div>
       </Reveal>
 
       <Reveal delay={500}>
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 rounded-md border border-border overflow-hidden bg-surface/40">
-          {[
-            ["6+", "Years"],
-            ["40+", "Projects"],
-            ["100%", "Retention"],
-            ["↑", "Always shipping"],
-          ].map(([k, v], i) => (
-            <div
-              key={v}
-              className={`p-6 md:p-8 text-center ${i < 3 ? "border-r border-border" : ""} ${
-                i < 2 ? "border-b border-border md:border-b-0" : ""
-              }`}
-            >
+          {[["6+", "Years"], ["40+", "Projects"], ["100%", "Retention"], ["↑", "Always shipping"]].map(([k, v], i) => (
+            <div key={v} className={`p-6 md:p-8 text-center ${i < 3 ? "border-r border-border" : ""} ${i < 2 ? "border-b border-border md:border-b-0" : ""}`}>
               <div className="font-display text-4xl md:text-5xl">{k}</div>
-              <div className="mt-2 text-[11px] tracking-[0.25em] uppercase font-mono text-muted-foreground">
-                {v}
-              </div>
+              <div className="mt-2 text-[11px] tracking-[0.25em] uppercase font-mono text-muted-foreground">{v}</div>
             </div>
-          ))}
-        </div>
-      </Reveal>
-
-      <Reveal delay={600}>
-        <div className="mt-10 flex flex-wrap gap-2 font-mono text-xs">
-          {["GitHub", "LinkedIn", "Dribbble", "Behance", "Instagram", "Email"].map((s) => (
-            <a
-              key={s}
-              href="#contact"
-              className="px-4 py-2 rounded border border-border bg-surface/60 hover:border-accent hover:text-accent transition-colors"
-            >
-              ▸ {s}
-            </a>
           ))}
         </div>
       </Reveal>
