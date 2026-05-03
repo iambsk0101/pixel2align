@@ -65,6 +65,7 @@ type IdeState = {
   paletteOpen: boolean;
   settingsOpen: boolean;
   briefOpen: boolean;
+  mobileNavOpen: boolean;
   openFile: (id: FileId) => void;
   closeTab: (id: FileId) => void;
   closeAllTabs: () => void;
