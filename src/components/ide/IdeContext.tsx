@@ -117,11 +117,13 @@ export function IdeProvider({ children }: { children: React.ReactNode }) {
   const openFile = useCallback((id: FileId) => {
     if (id === "brief") {
       setBriefOpen(true);
+      setMobileNavOpen(false);
       return;
     }
     setOpenTabs((prev) => (prev.includes(id) ? prev : [...prev, id]));
     setActiveTab(id);
     setRecents((prev) => [id, ...prev.filter((x) => x !== id)].slice(0, 8));
+    setMobileNavOpen(false);
   }, []);
 
   const closeTab = useCallback((id: FileId) => {
