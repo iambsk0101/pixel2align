@@ -8,6 +8,7 @@ import { SettingsDrawer } from "@/components/ide/SettingsDrawer";
 import { CommandPalette } from "@/components/ide/CommandPalette";
 import { BriefModal } from "@/components/ide/BriefModal";
 import { Terminal } from "@/components/ide/Terminal";
+import { MobileNav } from "@/components/ide/MobileNav";
 import { WelcomeScreen } from "@/components/ide/WelcomeScreen";
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
@@ -63,6 +64,7 @@ function Index() {
         </main>
       </div>
       <StatusBar />
+      <MobileNav />
       <SettingsDrawer />
       <CommandPalette />
       <BriefModal />
