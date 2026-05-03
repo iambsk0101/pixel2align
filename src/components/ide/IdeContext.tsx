@@ -79,6 +79,9 @@ type IdeState = {
   closeSettings: () => void;
   openBrief: () => void;
   closeBrief: () => void;
+  openMobileNav: () => void;
+  closeMobileNav: () => void;
+  toggleMobileNav: () => void;
 };
 
 const Ctx = createContext<IdeState | null>(null);
@@ -93,6 +96,7 @@ export function IdeProvider({ children }: { children: React.ReactNode }) {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [briefOpen, setBriefOpen] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   // Load persisted theme
   useEffect(() => {
@@ -154,6 +158,7 @@ export function IdeProvider({ children }: { children: React.ReactNode }) {
       paletteOpen,
       settingsOpen,
       briefOpen,
+      mobileNavOpen,
       openFile,
       closeTab,
       closeAllTabs,
@@ -167,8 +172,11 @@ export function IdeProvider({ children }: { children: React.ReactNode }) {
       closeSettings: () => setSettingsOpen(false),
       openBrief: () => setBriefOpen(true),
       closeBrief: () => setBriefOpen(false),
+      openMobileNav: () => setMobileNavOpen(true),
+      closeMobileNav: () => setMobileNavOpen(false),
+      toggleMobileNav: () => setMobileNavOpen((v) => !v),
     }),
-    [openTabs, activeTab, recents, sidebarOpen, terminalOpen, theme, paletteOpen, settingsOpen, briefOpen, openFile, closeTab, closeAllTabs, setActive],
+    [openTabs, activeTab, recents, sidebarOpen, terminalOpen, theme, paletteOpen, settingsOpen, briefOpen, mobileNavOpen, openFile, closeTab, closeAllTabs, setActive],
   );
 
   // Global keyboard shortcuts
