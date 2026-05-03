@@ -99,11 +99,28 @@ export function TitleBar() {
 
   return (
     <div ref={ref} className="h-9 bg-titlebar border-b border-border flex items-center px-3 select-none text-xs font-mono text-muted-foreground relative z-50">
-      <div className="flex items-center gap-2 mr-4">
+      <div className="hidden md:flex items-center gap-2 mr-4">
         <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
         <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
         <span className="h-3 w-3 rounded-full bg-[#28c840]" />
       </div>
+
+      {/* Mobile hamburger */}
+      <button
+        onClick={ide.toggleMobileNav}
+        aria-label="Open menu"
+        className="md:hidden h-9 w-9 grid place-items-center text-foreground hover:bg-surface transition-colors"
+      >
+        <span className="flex flex-col gap-[3px]">
+          <span className="block h-[2px] w-4 bg-current" />
+          <span className="block h-[2px] w-4 bg-current" />
+          <span className="block h-[2px] w-4 bg-current" />
+        </span>
+      </button>
+
+      <span className="md:hidden text-[11px] truncate text-muted-foreground">
+        ~/ {ide.activeTab ? ide.activeTab : "home"}
+      </span>
 
       <div className="hidden md:flex">
         {menus.map((m) => (
