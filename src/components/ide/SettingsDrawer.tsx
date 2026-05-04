@@ -1,9 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useIde, THEMES } from "./IdeContext";
+import { useSound } from "./SoundContext";
 import { toast } from "sonner";
+import {
+  Search,
+  TerminalSquare,
+  Sparkles,
+  FileText,
+  PanelLeft,
+  Volume2,
+  VolumeX,
+  Check,
+} from "lucide-react";
 
 export function SettingsDrawer() {
   const ide = useIde();
+  const sound = useSound();
 
   useEffect(() => {
     if (!ide.settingsOpen) return;
@@ -18,7 +30,7 @@ export function SettingsDrawer() {
     <div className="fixed inset-0 z-[60]" onMouseDown={ide.closeSettings}>
       <div
         onMouseDown={(e) => e.stopPropagation()}
-        className="absolute left-0 bottom-7 w-[320px] max-h-[85vh] overflow-y-auto bg-surface-elevated border border-border shadow-2xl text-foreground"
+        className="absolute left-0 bottom-7 w-[320px] max-h-[85vh] overflow-y-auto bg-surface-elevated border border-border shadow-2xl text-foreground animate-fade-in"
       >
         <div className="px-4 py-3 border-b border-border text-[11px] uppercase tracking-wider font-mono text-muted-foreground">Settings</div>
 
@@ -31,20 +43,21 @@ export function SettingsDrawer() {
                 onClick={() => { ide.setTheme(t.id); toast(`Theme: ${t.label}`); }}
                 className={`w-full flex items-center gap-3 px-4 py-2 text-sm hover:bg-surface transition-colors ${active ? "bg-surface" : ""}`}
               >
-                <span className="h-5 w-5 rounded-full border border-border" style={{ background: t.dot }} />
-                <span>{t.emoji} {t.label}</span>
-                {active && <span className="ml-auto text-accent">✓</span>}
+                <span className="h-4 w-4 rounded-full border border-border" style={{ background: t.dot }} />
+                <span>{t.label}</span>
+                {active && <Check className="ml-auto h-4 w-4 text-accent" />}
               </button>
             );
           })}
         </Section>
 
         <Section title="Quick Actions">
-          <Action label="Command Palette" shortcut="Ctrl+P" icon="🔍" onClick={() => { ide.openPalette(); ide.closeSettings(); }} />
-          <Action label={ide.terminalOpen ? "Hide Terminal" : "Toggle Terminal"} shortcut="Ctrl+`" icon="▸_" onClick={ide.toggleTerminal} />
-          <Action label="Copilot Chat" icon="✦" onClick={() => toast("✦ Copilot — coming soon")} />
-          <Action label="Download Brief" icon="📄" onClick={() => { ide.openBrief(); ide.closeSettings(); }} />
-          <Action label={ide.sidebarOpen ? "Hide Sidebar" : "Show Sidebar"} shortcut="Ctrl+B" icon="◧" onClick={ide.toggleSidebar} />
+          <Action icon={<Search className="h-4 w-4" />} label="Command Palette" shortcut="Ctrl+P" onClick={() => { ide.openPalette(); ide.closeSettings(); }} />
+          <Action icon={<TerminalSquare className="h-4 w-4" />} label={ide.terminalOpen ? "Hide Terminal" : "Toggle Terminal"} shortcut="Ctrl+`" onClick={ide.toggleTerminal} />
+          <Action icon={<Sparkles className="h-4 w-4 text-accent" />} label="Copilot Chat" onClick={() => { ide.openCopilot(); ide.closeSettings(); }} />
+          <Action icon={<FileText className="h-4 w-4" />} label="Download Brief" onClick={() => { ide.openBrief(); ide.closeSettings(); }} />
+          <Action icon={<PanelLeft className="h-4 w-4" />} label={ide.sidebarOpen ? "Hide Sidebar" : "Show Sidebar"} shortcut="Ctrl+B" onClick={ide.toggleSidebar} />
+          <Action icon={sound.enabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />} label={sound.enabled ? "Mute Keystrokes" : "Enable Keystroke Sounds"} onClick={sound.toggle} />
         </Section>
 
         <Section title="Keyboard Shortcuts">
@@ -71,10 +84,10 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-function Action({ label, shortcut, icon, onClick }: { label: string; shortcut?: string; icon: string; onClick: () => void }) {
+function Action({ label, shortcut, icon, onClick }: { label: string; shortcut?: string; icon: React.ReactNode; onClick: () => void }) {
   return (
     <button onClick={onClick} className="w-full flex items-center gap-3 px-4 py-2 text-sm hover:bg-surface transition-colors">
-      <span className="w-5 text-center">{icon}</span>
+      <span className="w-5 grid place-items-center">{icon}</span>
       <span>{label}</span>
       {shortcut && <span className="ml-auto text-[10px] font-mono text-muted-foreground">{shortcut}</span>}
     </button>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { EditorPane, Reveal } from "@/components/ide/EditorPane";
 import anugraha from "@/assets/projects/anugraha.jpg";
 import dilip from "@/assets/projects/dilip.jpg";
@@ -8,21 +9,13 @@ import phstore from "@/assets/projects/phstore.jpg";
 import v2v from "@/assets/projects/v2v.jpg";
 import v2vBio from "@/assets/projects/v2v-bio.jpg";
 import v2vConvert from "@/assets/projects/v2v-convert.jpg";
+import { ArrowUpRight } from "lucide-react";
+import { CaseStudyModal, type CaseStudy } from "@/components/ide/CaseStudyModal";
 
-type Project = {
-  no: string;
-  name: string;
-  category: string;
-  year: string;
-  blurb: string;
-  tags: string[];
-  image: string;
-  url: string;
-  span?: "wide" | "tall";
-};
+type Project = CaseStudy & { span?: "wide" | "tall" };
 
 const projects: Project[] = [
-  { no: "01", name: "Anugraha Bhimtal", category: "Hospitality · Lakeside Resort", year: "2025", blurb: "Editorial resort site that turns lakeside calm into bookings.", tags: ["Web Design", "Branding", "CMS"], image: anugraha, url: "#", span: "wide" },
+  { no: "01", name: "Anugraha Bhimtal", category: "Hospitality · Lakeside Resort", year: "2025", blurb: "Editorial resort site that turns lakeside calm into bookings.", tags: ["Web Design", "Branding", "CMS"], image: anugraha, url: "#", span: "wide", problem: "A boutique lakeside property with strong visuals but a generic site that wasn't converting browsers into bookings.", approach: "Editorial typography, full-bleed photography, story-led scroll, and a friction-free booking inquiry flow.", outcome: "Brand finally feels as premium as the property. Inquiries up, drop-off down." },
   { no: "02", name: "Dilip's Retreat", category: "Hospitality · Mountain Retreat", year: "2025", blurb: "Warm, story-led design with parallax storytelling.", tags: ["Web Design", "UX"], image: dilip, url: "#" },
   { no: "03", name: "The Moonlight Homestay", category: "Hospitality · Homestay", year: "2024", blurb: "Intimate, image-first layout that sells the experience.", tags: ["Brand", "Web Design"], image: moonlight, url: "#" },
   { no: "04", name: "SpaceionDesign", category: "Branding · Interior Studio", year: "2024", blurb: "Luxury identity & website for a high-end interior studio.", tags: ["Identity", "Web"], image: spaceion, url: "#", span: "wide" },
@@ -34,6 +27,8 @@ const projects: Project[] = [
 ];
 
 export function Work() {
+  const [open, setOpen] = useState<Project | null>(null);
+
   return (
     <EditorPane id="projects" lines={64}>
       <div className="font-mono text-sm syntax-comment mb-2">// projects.js · selected work, 2024 — 2025</div>
@@ -52,7 +47,7 @@ export function Work() {
 
       <Reveal delay={120}>
         <p className="mt-6 max-w-xl text-muted-foreground text-base md:text-lg">
-          Nine recent engagements across hospitality, ecommerce and high-conversion funnels.
+          Nine recent engagements across hospitality, ecommerce and high-conversion funnels. Click any card for the case study.
         </p>
       </Reveal>
 
@@ -61,15 +56,11 @@ export function Work() {
           <Reveal
             key={p.no}
             delay={i * 50}
-            className={
-              p.span === "wide"
-                ? "lg:col-span-4"
-                : "lg:col-span-2"
-            }
+            className={p.span === "wide" ? "lg:col-span-4" : "lg:col-span-2"}
           >
-            <a
-              href={p.url}
-              className="group block rounded-xl overflow-hidden border border-border bg-surface/40 hover:border-accent transition-all duration-500"
+            <button
+              onClick={() => setOpen(p)}
+              className="group block w-full text-left rounded-xl overflow-hidden border border-border bg-surface/40 hover:border-accent transition-all duration-500"
             >
               <div className="relative aspect-[16/10] overflow-hidden bg-surface">
                 <img
@@ -82,45 +73,36 @@ export function Work() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-80" />
                 <div className="absolute top-3 left-3 flex items-center gap-2">
-                  <span className="font-mono text-[10px] px-2 py-1 rounded bg-black/60 text-white border border-white/10">
-                    {p.no}
-                  </span>
-                  <span className="font-mono text-[10px] px-2 py-1 rounded bg-black/60 text-white border border-white/10">
-                    {p.year}
-                  </span>
+                  <span className="font-mono text-[10px] px-2 py-1 rounded bg-black/60 text-white border border-white/10">{p.no}</span>
+                  <span className="font-mono text-[10px] px-2 py-1 rounded bg-black/60 text-white border border-white/10">{p.year}</span>
                 </div>
                 <span className="absolute top-3 right-3 inline-flex items-center justify-center h-9 w-9 rounded-full bg-white/10 backdrop-blur border border-white/20 text-white group-hover:bg-accent group-hover:text-accent-foreground group-hover:border-accent group-hover:rotate-45 transition-all duration-500">
-                  ↗
+                  <ArrowUpRight className="h-4 w-4" />
                 </span>
               </div>
 
               <div className="p-5">
-                <div className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-                  {p.category}
-                </div>
+                <div className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">{p.category}</div>
                 <h3 className="mt-2 font-display uppercase leading-[1] text-2xl md:text-3xl group-hover:text-accent transition-colors">
                   {p.name}
                 </h3>
-                <p className="mt-2 text-sm text-muted-foreground line-clamp-2">
-                  {p.blurb}
-                </p>
+                <p className="mt-2 text-sm text-muted-foreground line-clamp-2">{p.blurb}</p>
                 <div className="mt-4 flex flex-wrap gap-1.5">
                   {p.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="text-[10px] uppercase tracking-wider font-mono px-2 py-1 rounded border border-border text-muted-foreground"
-                    >
+                    <span key={t} className="text-[10px] uppercase tracking-wider font-mono px-2 py-1 rounded border border-border text-muted-foreground">
                       {t}
                     </span>
                   ))}
                 </div>
               </div>
-            </a>
+            </button>
           </Reveal>
         ))}
       </div>
 
       <div className="mt-10 font-mono text-sm">];</div>
+
+      <CaseStudyModal study={open} onClose={() => setOpen(null)} />
     </EditorPane>
   );
 }
