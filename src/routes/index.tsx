@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { IdeProvider, useIde } from "@/components/ide/IdeContext";
+import { SoundProvider } from "@/components/ide/SoundContext";
 import { TitleBar } from "@/components/ide/TitleBar";
 import { Sidebar } from "@/components/ide/Sidebar";
 import { EditorTabs, Breadcrumb } from "@/components/ide/EditorTabs";
@@ -10,6 +12,8 @@ import { BriefModal } from "@/components/ide/BriefModal";
 import { Terminal } from "@/components/ide/Terminal";
 import { MobileNav } from "@/components/ide/MobileNav";
 import { WelcomeScreen } from "@/components/ide/WelcomeScreen";
+import { CopilotPanel } from "@/components/ide/Copilot";
+import { BootLoader } from "@/components/ide/BootLoader";
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
 import { Work } from "@/components/sections/Work";
@@ -17,6 +21,7 @@ import { Skills } from "@/components/sections/Skills";
 import { Process } from "@/components/sections/Process";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { Contact } from "@/components/sections/Contact";
+import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
 
 export const Route = createFileRoute("/")({
@@ -27,9 +32,11 @@ export const Route = createFileRoute("/")({
     ],
   }),
   component: () => (
-    <IdeProvider>
-      <Index />
-    </IdeProvider>
+    <SoundProvider>
+      <IdeProvider>
+        <Index />
+      </IdeProvider>
+    </SoundProvider>
   ),
 });
 
@@ -49,8 +56,24 @@ function ActiveContent() {
 }
 
 function Index() {
+  const ide = useIde();
+
+  useEffect(() => {
+    if (ide.booted) return;
+    const seen = sessionStorage.getItem("p2a-booted");
+    if (seen) ide.setBooted(true);
+  }, [ide]);
+
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col">
+    <div className="h-screen bg-background text-foreground flex flex-col overflow-hidden">
+      {!ide.booted && (
+        <BootLoader
+          onDone={() => {
+            try { sessionStorage.setItem("p2a-booted", "1"); } catch {}
+            ide.setBooted(true);
+          }}
+        />
+      )}
       <TitleBar />
       <div className="flex-1 flex min-h-0">
         <Sidebar />
@@ -59,6 +82,7 @@ function Index() {
           <Breadcrumb />
           <div className="flex-1 overflow-y-auto">
             <ActiveContent />
+            <Footer />
           </div>
           <Terminal />
         </main>
@@ -68,6 +92,7 @@ function Index() {
       <SettingsDrawer />
       <CommandPalette />
       <BriefModal />
+      <CopilotPanel />
       <Toaster position="bottom-right" />
     </div>
   );
