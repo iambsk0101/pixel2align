@@ -66,6 +66,8 @@ type IdeState = {
   settingsOpen: boolean;
   briefOpen: boolean;
   mobileNavOpen: boolean;
+  copilotOpen: boolean;
+  booted: boolean;
   openFile: (id: FileId) => void;
   closeTab: (id: FileId) => void;
   closeAllTabs: () => void;
@@ -82,6 +84,9 @@ type IdeState = {
   openMobileNav: () => void;
   closeMobileNav: () => void;
   toggleMobileNav: () => void;
+  openCopilot: () => void;
+  closeCopilot: () => void;
+  setBooted: (b: boolean) => void;
 };
 
 const Ctx = createContext<IdeState | null>(null);
@@ -97,6 +102,8 @@ export function IdeProvider({ children }: { children: React.ReactNode }) {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [briefOpen, setBriefOpen] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [copilotOpen, setCopilotOpen] = useState(false);
+  const [booted, setBooted] = useState(false);
 
   // Load persisted theme
   useEffect(() => {
@@ -161,6 +168,8 @@ export function IdeProvider({ children }: { children: React.ReactNode }) {
       settingsOpen,
       briefOpen,
       mobileNavOpen,
+      copilotOpen,
+      booted,
       openFile,
       closeTab,
       closeAllTabs,
@@ -177,8 +186,11 @@ export function IdeProvider({ children }: { children: React.ReactNode }) {
       openMobileNav: () => setMobileNavOpen(true),
       closeMobileNav: () => setMobileNavOpen(false),
       toggleMobileNav: () => setMobileNavOpen((v) => !v),
+      openCopilot: () => setCopilotOpen(true),
+      closeCopilot: () => setCopilotOpen(false),
+      setBooted: (b) => setBooted(b),
     }),
-    [openTabs, activeTab, recents, sidebarOpen, terminalOpen, theme, paletteOpen, settingsOpen, briefOpen, mobileNavOpen, openFile, closeTab, closeAllTabs, setActive],
+    [openTabs, activeTab, recents, sidebarOpen, terminalOpen, theme, paletteOpen, settingsOpen, briefOpen, mobileNavOpen, copilotOpen, booted, openFile, closeTab, closeAllTabs, setActive],
   );
 
   // Global keyboard shortcuts
