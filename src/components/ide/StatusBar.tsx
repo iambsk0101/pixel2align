@@ -1,17 +1,29 @@
 import { useEffect, useState } from "react";
 import { useIde, FILES } from "./IdeContext";
 import { StatusBarThemePopover } from "./StatusBarThemePopover";
-import { Settings, GitBranch, AlertTriangle, Ban, Bell, Wifi } from "lucide-react";
+import { Settings, GitBranch, AlertTriangle, Ban, Bell, Wifi, MousePointer2 } from "lucide-react";
 
 export function StatusBar() {
   const { activeTab, openSettings } = useIde();
   const [time, setTime] = useState("");
+  const [cursorOn, setCursorOn] = useState(true);
   useEffect(() => {
     const update = () => setTime(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
     update();
     const i = setInterval(update, 30_000);
+    try {
+      const v = localStorage.getItem("p2a-cursor");
+      setCursorOn(v === null ? true : v === "1");
+    } catch {}
     return () => clearInterval(i);
   }, []);
+
+  const toggleCursor = () => {
+    const next = !cursorOn;
+    setCursorOn(next);
+    try { localStorage.setItem("p2a-cursor", next ? "1" : "0"); } catch {}
+    window.dispatchEvent(new Event("p2a-cursor-change"));
+  };
 
   const f = activeTab ? FILES[activeTab] : null;
 
@@ -34,6 +46,14 @@ export function StatusBar() {
       <span className="px-2 hidden lg:inline">UTF-8</span>
       <span className="px-2 hidden lg:inline">Prettier</span>
       <StatusBarThemePopover />
+      <button
+        onClick={toggleCursor}
+        title={cursorOn ? "Disable custom cursor" : "Enable custom cursor"}
+        className="px-2 h-full hidden sm:inline-flex items-center gap-1 hover:bg-black/15 transition-colors"
+      >
+        <MousePointer2 className="h-3 w-3" />
+        <span>{cursorOn ? "On" : "Off"}</span>
+      </button>
       <span className="px-2 hidden sm:inline-flex items-center gap-1"><Wifi className="h-3 w-3" /></span>
       <span className="px-3 inline-flex items-center gap-1"><Bell className="h-3 w-3" /> {time}</span>
     </div>
