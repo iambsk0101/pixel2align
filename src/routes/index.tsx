@@ -14,6 +14,7 @@ import { MobileNav } from "@/components/ide/MobileNav";
 import { WelcomeScreen } from "@/components/ide/WelcomeScreen";
 import { CopilotPanel } from "@/components/ide/Copilot";
 import { BootLoader } from "@/components/ide/BootLoader";
+import { CustomCursor } from "@/components/ide/CustomCursor";
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
 import { Work } from "@/components/sections/Work";
@@ -94,6 +95,7 @@ function Index() {
       <BriefModal />
       <CopilotPanel />
       <Toaster position="bottom-right" />
+      <CustomCursor />
     </div>
   );
 }

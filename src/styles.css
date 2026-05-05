@@ -297,4 +297,11 @@
 
   .scrollbar-hide::-webkit-scrollbar { display: none; }
   .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .animate-blink { animation: blink 1s steps(1) infinite; }
+}
+
+@media (pointer: fine) {
+  .cursor-none-root,
+  .cursor-none-root * { cursor: none !important; }
 }
