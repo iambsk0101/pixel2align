@@ -58,6 +58,11 @@ export function Sidebar() {
               onClick={() => {
                 setActivity(a.id);
                 if (a.id === "ai") ide.openCopilot();
+                else if (a.id === "search") ide.openPalette();
+                else if (a.id === "git") window.open("https://github.com/", "_blank");
+                else if (a.id === "run") ide.toggleTerminal();
+                else if (a.id === "ext") ide.openSettings();
+                else if (a.id === "explorer") ide.toggleSidebar();
               }}
               title={a.label}
               className={`w-12 h-11 grid place-items-center hover:text-foreground transition-colors relative ${
