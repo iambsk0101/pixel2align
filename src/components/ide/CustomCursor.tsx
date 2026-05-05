@@ -64,7 +64,7 @@ export function CustomCursor() {
       document.removeEventListener("mouseleave", onLeave);
       document.removeEventListener("mouseenter", onEnter);
     };
-  }, []);
+  }, [enabled]);
 
   if (!enabled) return null;
 
