@@ -12,7 +12,25 @@ export function CustomCursor() {
     // Disable on touch / coarse pointer devices
     const fine = window.matchMedia("(pointer: fine)").matches;
     if (!fine) return;
-    setEnabled(true);
+
+    const read = () => {
+      try {
+        const v = localStorage.getItem("p2a-cursor");
+        return v === null ? true : v === "1";
+      } catch { return true; }
+    };
+    setEnabled(read());
+
+    const onToggle = () => setEnabled(read());
+    window.addEventListener("p2a-cursor-change", onToggle);
+    return () => window.removeEventListener("p2a-cursor-change", onToggle);
+  }, []);
+
+  useEffect(() => {
+    if (!enabled) {
+      document.documentElement.classList.remove("cursor-none-root");
+      return;
+    }
     document.documentElement.classList.add("cursor-none-root");
 
     const onMove = (e: MouseEvent) => {
