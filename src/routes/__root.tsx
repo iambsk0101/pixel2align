@@ -50,6 +50,22 @@ export const Route = createRootRoute({
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" },
       { rel: "canonical", href: "https://pixel2align.lovable.app/" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ProfessionalService",
+          name: "Pixel2Align",
+          description: "Premium Web & UI design studio crafting conversion-focused websites for ambitious brands.",
+          url: "https://pixel2align.lovable.app/",
+          image: "https://pixel2align.lovable.app/favicon.png",
+          priceRange: "$$$",
+          areaServed: "Worldwide",
+          sameAs: [],
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
