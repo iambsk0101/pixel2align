@@ -63,20 +63,29 @@ export function Work() {
               className="group block w-full text-left rounded-xl overflow-hidden border border-border bg-surface/40 hover:border-accent transition-all duration-500"
             >
               <div className="relative aspect-[16/10] overflow-hidden bg-surface">
+                {/* browser chrome */}
+                <div className="absolute top-0 inset-x-0 z-10 flex items-center gap-1.5 px-3 h-7 bg-black/70 backdrop-blur border-b border-white/10">
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+                  <span className="ml-3 px-2 py-0.5 rounded text-[9px] font-mono text-white/70 bg-white/5 border border-white/10 truncate max-w-[60%]">
+                    {p.name.toLowerCase().replace(/\s+/g, "")}.com
+                  </span>
+                </div>
                 <img
                   src={p.image}
-                  alt={`${p.name} — ${p.category}`}
+                  alt={`${p.name} website screenshot — ${p.category}`}
                   loading="lazy"
                   width={1280}
                   height={896}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+                  className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-80" />
-                <div className="absolute top-3 left-3 flex items-center gap-2">
+                <div className="absolute top-9 left-3 flex items-center gap-2">
                   <span className="font-mono text-[10px] px-2 py-1 rounded bg-black/60 text-white border border-white/10">{p.no}</span>
                   <span className="font-mono text-[10px] px-2 py-1 rounded bg-black/60 text-white border border-white/10">{p.year}</span>
                 </div>
-                <span className="absolute top-3 right-3 inline-flex items-center justify-center h-9 w-9 rounded-full bg-white/10 backdrop-blur border border-white/20 text-white group-hover:bg-accent group-hover:text-accent-foreground group-hover:border-accent group-hover:rotate-45 transition-all duration-500">
+                <span className="absolute top-9 right-3 inline-flex items-center justify-center h-9 w-9 rounded-full bg-white/10 backdrop-blur border border-white/20 text-white group-hover:bg-accent group-hover:text-accent-foreground group-hover:border-accent group-hover:rotate-45 transition-all duration-500">
                   <ArrowUpRight className="h-4 w-4" />
                 </span>
               </div>
