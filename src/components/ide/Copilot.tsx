@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { askCopilot } from "@/server/copilot.functions";
+import { askCopilot } from "@/utils/copilot.functions";
 import { Sparkles, X, Send, Loader2 } from "lucide-react";
 import { useIde } from "./IdeContext";
 
