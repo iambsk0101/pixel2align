@@ -65,6 +65,54 @@ export type Database = {
         }
         Relationships: []
       }
+      file_views: {
+        Row: {
+          created_at: string
+          file_id: string
+          id: string
+          session_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          file_id: string
+          id?: string
+          session_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          file_id?: string
+          id?: string
+          session_id?: string | null
+        }
+        Relationships: []
+      }
+      page_views: {
+        Row: {
+          created_at: string
+          id: string
+          path: string
+          referrer: string | null
+          session_id: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          path: string
+          referrer?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          path?: string
+          referrer?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
