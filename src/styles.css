@@ -225,6 +225,28 @@
   --syntax-fn: oklch(0.78 0.13 220);
 }
 
+[data-theme="synthwave"] {
+  --background: oklch(0.16 0.08 300);
+  --foreground: oklch(0.96 0.04 320);
+  --editor: oklch(0.18 0.09 295);
+  --surface: oklch(0.22 0.1 295);
+  --surface-elevated: oklch(0.26 0.11 295);
+  --sidebar: oklch(0.13 0.07 295);
+  --titlebar: oklch(0.11 0.06 295);
+  --statusbar: oklch(0.62 0.28 340);
+  --line: oklch(1 0 0 / 0.08);
+  --primary: oklch(0.78 0.22 340);
+  --primary-foreground: oklch(0.12 0.05 295);
+  --accent: oklch(0.82 0.2 195);
+  --accent-foreground: oklch(0.12 0.05 295);
+  --muted-foreground: oklch(0.78 0.08 320);
+  --border: oklch(0.82 0.2 195 / 0.25);
+  --ring: oklch(0.82 0.2 195);
+  --syntax-keyword: oklch(0.78 0.22 340);
+  --syntax-string: oklch(0.85 0.18 100);
+  --syntax-fn: oklch(0.82 0.2 195);
+}
+
 [data-theme="pixel-light"], .light {
   --background: oklch(0.985 0.005 80);
   --foreground: oklch(0.18 0.04 260);
