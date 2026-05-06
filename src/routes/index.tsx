@@ -15,6 +15,9 @@ import { WelcomeScreen } from "@/components/ide/WelcomeScreen";
 import { CopilotPanel } from "@/components/ide/Copilot";
 import { BootLoader } from "@/components/ide/BootLoader";
 import { CustomCursor } from "@/components/ide/CustomCursor";
+import { KonamiUnlock } from "@/components/ide/KonamiUnlock";
+import { HireMeToast } from "@/components/ide/HireMeToast";
+import { AnalyticsTracker } from "@/components/ide/AnalyticsTracker";
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
 import { Work } from "@/components/sections/Work";
@@ -96,6 +99,9 @@ function Index() {
       <CopilotPanel />
       <Toaster position="bottom-right" />
       <CustomCursor />
+      <KonamiUnlock />
+      <HireMeToast />
+      <AnalyticsTracker />
     </div>
   );
 }
