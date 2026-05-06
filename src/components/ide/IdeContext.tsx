@@ -43,9 +43,9 @@ export const FILE_ORDER: FileId[] = [
   "brief",
 ];
 
-export type ThemeId = "pixel-dark" | "rose-pine" | "tokyo-night" | "catppuccin" | "nord" | "gruvbox" | "pixel-light";
+export type ThemeId = "pixel-dark" | "rose-pine" | "tokyo-night" | "catppuccin" | "nord" | "gruvbox" | "pixel-light" | "synthwave";
 
-export const THEMES: { id: ThemeId; label: string; emoji: string; dot: string }[] = [
+export const THEMES: { id: ThemeId; label: string; emoji: string; dot: string; secret?: boolean }[] = [
   { id: "pixel-dark", label: "Pixel Dark", emoji: "✦", dot: "#f59e0b" },
   { id: "rose-pine", label: "Rosé Pine", emoji: "🌹", dot: "#eb6f92" },
   { id: "tokyo-night", label: "Tokyo Night", emoji: "🗼", dot: "#7aa2f7" },
@@ -53,6 +53,7 @@ export const THEMES: { id: ThemeId; label: string; emoji: string; dot: string }[
   { id: "nord", label: "Nord", emoji: "❄", dot: "#88c0d0" },
   { id: "gruvbox", label: "Gruvbox", emoji: "🔥", dot: "#fabd2f" },
   { id: "pixel-light", label: "Pixel Light", emoji: "☀", dot: "#f97316" },
+  { id: "synthwave", label: "Synthwave '84", emoji: "🌆", dot: "#ff71ce", secret: true },
 ];
 
 type IdeState = {
