@@ -2,7 +2,7 @@ import { useState } from "react";
 import { EditorPane, Reveal } from "@/components/ide/EditorPane";
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
-import { submitContact } from "@/server/contact.functions";
+import { submitContact } from "@/utils/contact.functions";
 import { Send } from "lucide-react";
 
 export function Contact() {
