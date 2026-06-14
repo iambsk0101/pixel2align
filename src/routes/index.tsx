@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { IdeProvider, useIde } from "@/components/ide/IdeContext";
 import { SoundProvider } from "@/components/ide/SoundContext";
 import { TitleBar } from "@/components/ide/TitleBar";
