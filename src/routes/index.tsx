@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { IdeProvider, useIde } from "@/components/ide/IdeContext";
 import { SoundProvider } from "@/components/ide/SoundContext";
 import { TitleBar } from "@/components/ide/TitleBar";
@@ -61,12 +61,17 @@ function ActiveContent() {
 
 function Index() {
   const ide = useIde();
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (ide.booted) return;
     const seen = sessionStorage.getItem("p2a-booted");
     if (seen) ide.setBooted(true);
   }, [ide]);
+
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: 0, left: 0 });
+  }, [ide.activeTab]);
 
   return (
     <div className="h-screen bg-background text-foreground flex flex-col overflow-hidden">
@@ -84,7 +89,7 @@ function Index() {
         <main className="flex-1 min-w-0 flex flex-col bg-editor">
           <EditorTabs />
           <Breadcrumb />
-          <div className="flex-1 overflow-y-auto">
+          <div ref={scrollRef} className="flex-1 overflow-y-auto">
             <ActiveContent />
             <Footer />
           </div>
