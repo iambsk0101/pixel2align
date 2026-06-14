@@ -51,12 +51,11 @@ export function Work() {
         </p>
       </Reveal>
 
-      <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5 md:gap-6">
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
         {projects.map((p, i) => (
           <Reveal
             key={p.no}
             delay={i * 50}
-            className={p.span === "wide" ? "lg:col-span-4" : "lg:col-span-2"}
           >
             <button
               onClick={() => setOpen(p)}
