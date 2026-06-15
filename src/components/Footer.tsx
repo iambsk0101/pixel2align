@@ -1,5 +1,6 @@
 import { useIde } from "@/components/ide/IdeContext";
 import { Sparkles } from "lucide-react";
+import { Logo } from "@/components/Logo";
 
 export function Footer() {
   const ide = useIde();
@@ -21,11 +22,9 @@ export function Footer() {
     <footer className="bg-titlebar border-t border-border">
       <div className="px-6 md:px-10 py-12 grid md:grid-cols-3 gap-8">
         <div>
-          <div className="font-display uppercase text-3xl">
-            Pixel<span className="text-accent">2</span>Align
-          </div>
-          <p className="mt-3 text-sm text-muted-foreground max-w-sm">
-            Premium web & UI design for brands that refuse to look ordinary.
+          <Logo className="h-10 md:h-12 w-auto" />
+          <p className="mt-4 text-sm text-muted-foreground max-w-sm">
+            Independent web &amp; UI design studio in India. We craft fast, accessible, conversion-focused websites for hotels, D2C brands, SaaS and creators.
           </p>
           <button
             onClick={ide.openCopilot}

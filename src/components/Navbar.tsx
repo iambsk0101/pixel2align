@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import logo from "@/assets/pixel2align-logo.png";
+import { Logo } from "@/components/Logo";
 
 const links = [
   { href: "#work", label: "Work" },
@@ -29,7 +29,7 @@ export function Navbar() {
     >
       <div className="mx-auto max-w-7xl px-6 flex items-center justify-between">
         <a href="#top" className="flex items-center gap-2 group">
-          <img src={logo} alt="Pixel2Align" className="h-7 md:h-8 w-auto dark:invert dark:brightness-200" />
+          <Logo className="h-7 md:h-8 w-auto" />
         </a>
 
         <nav className="hidden md:flex items-center gap-1 rounded-full border border-border bg-surface/60 backdrop-blur px-2 py-1.5">

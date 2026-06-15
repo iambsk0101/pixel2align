@@ -1,16 +1,14 @@
 import { useIde, FILE_ORDER, FILES } from "./IdeContext";
-import logo from "@/assets/pixel2align-logo.png";
+import { Logo } from "@/components/Logo";
 
 export function WelcomeScreen() {
   const { openFile, openPalette } = useIde();
   return (
     <div className="min-h-[70vh] grid place-items-center px-6 py-16">
       <div className="max-w-2xl w-full">
-        <img src={logo} alt="Pixel2Align" className="h-10 w-auto mb-6 opacity-90" />
-        <h2 className="font-display text-4xl md:text-5xl uppercase leading-none">
-          Pixel<span className="text-accent">2</span>Align
-        </h2>
-        <p className="mt-2 text-sm font-mono text-muted-foreground">A premium Web & UI design studio.</p>
+        <Logo className="h-12 w-auto mb-6 opacity-95" />
+        <h1 className="sr-only">Pixel2Align — Premium Web & UI Design Studio</h1>
+        <p className="mt-2 text-sm font-mono text-muted-foreground">Independent web &amp; UI design studio building fast, accessible, conversion-led websites.</p>
 
         <div className="mt-10 grid md:grid-cols-2 gap-8">
           <div>
