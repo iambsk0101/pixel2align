@@ -69,6 +69,8 @@ type IdeState = {
   mobileNavOpen: boolean;
   copilotOpen: boolean;
   booted: boolean;
+  minimized: boolean;
+  maximized: boolean;
   openFile: (id: FileId) => void;
   closeTab: (id: FileId) => void;
   closeAllTabs: () => void;
@@ -88,6 +90,8 @@ type IdeState = {
   openCopilot: () => void;
   closeCopilot: () => void;
   setBooted: (b: boolean) => void;
+  toggleMinimize: () => void;
+  toggleMaximize: () => void;
 };
 
 const Ctx = createContext<IdeState | null>(null);
@@ -105,6 +109,15 @@ export function IdeProvider({ children }: { children: React.ReactNode }) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [copilotOpen, setCopilotOpen] = useState(false);
   const [booted, setBooted] = useState(false);
+  const [minimized, setMinimized] = useState(false);
+  const [maximized, setMaximized] = useState(false);
+
+  // Track real fullscreen state
+  useEffect(() => {
+    const onFs = () => setMaximized(!!document.fullscreenElement);
+    document.addEventListener("fullscreenchange", onFs);
+    return () => document.removeEventListener("fullscreenchange", onFs);
+  }, []);
 
   // Load persisted theme
   useEffect(() => {
@@ -171,6 +184,8 @@ export function IdeProvider({ children }: { children: React.ReactNode }) {
       mobileNavOpen,
       copilotOpen,
       booted,
+      minimized,
+      maximized,
       openFile,
       closeTab,
       closeAllTabs,
@@ -190,8 +205,16 @@ export function IdeProvider({ children }: { children: React.ReactNode }) {
       openCopilot: () => setCopilotOpen(true),
       closeCopilot: () => setCopilotOpen(false),
       setBooted: (b) => setBooted(b),
+      toggleMinimize: () => setMinimized((v) => !v),
+      toggleMaximize: () => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen?.().catch(() => {});
+        } else {
+          document.exitFullscreen?.().catch(() => {});
+        }
+      },
     }),
-    [openTabs, activeTab, recents, sidebarOpen, terminalOpen, theme, paletteOpen, settingsOpen, briefOpen, mobileNavOpen, copilotOpen, booted, openFile, closeTab, closeAllTabs, setActive],
+    [openTabs, activeTab, recents, sidebarOpen, terminalOpen, theme, paletteOpen, settingsOpen, briefOpen, mobileNavOpen, copilotOpen, booted, minimized, maximized, openFile, closeTab, closeAllTabs, setActive],
   );
 
   // Global keyboard shortcuts
