@@ -8,14 +8,31 @@ type LogoProps = {
 
 /**
  * Theme-aware Pixel2Align wordmark.
- * - Dark-text logo shows on light backgrounds
- * - White-text logo shows in dark mode
+ * The root <html> gets a `.light` class only for the pixel-light theme
+ * (see IdeContext). Everything else is a dark theme.
+ *  - .light  → dark navy wordmark (pixel2align-logo.png)
+ *  - default → white wordmark    (pixel2align-light.png)
  */
-export function Logo({ className = "h-7 w-auto", alt = "Pixel2Align — Premium Web & UI Design Studio" }: LogoProps) {
+export function Logo({
+  className = "h-7 w-auto",
+  alt = "Pixel2Align — Premium Web & UI Design Studio",
+}: LogoProps) {
   return (
     <>
-      <img src={darkLogo} alt={alt} className={`${className} block dark:hidden`} loading="eager" decoding="async" />
-      <img src={lightLogo} alt={alt} className={`${className} hidden dark:block`} loading="eager" decoding="async" />
+      <img
+        src={darkLogo}
+        alt={alt}
+        className={`${className} hidden [.light_&]:block`}
+        loading="eager"
+        decoding="async"
+      />
+      <img
+        src={lightLogo}
+        alt={alt}
+        className={`${className} block [.light_&]:hidden`}
+        loading="eager"
+        decoding="async"
+      />
     </>
   );
 }
