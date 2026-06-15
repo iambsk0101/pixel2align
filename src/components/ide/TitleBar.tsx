@@ -26,6 +26,7 @@ import {
   VolumeX,
   Check,
 } from "lucide-react";
+import { Logo } from "@/components/Logo";
 
 type MenuItem =
   | { type: "item"; label: string; shortcut?: string; onClick: () => void; disabled?: boolean; icon?: React.ReactNode }
@@ -199,6 +200,15 @@ export function TitleBar() {
           <kbd className="px-1.5 py-0.5 rounded bg-surface border border-border text-[10px]">P</kbd>
         </button>
       </div>
+
+      <a
+        href="#top"
+        onClick={(e) => { e.preventDefault(); ide.openFile("hero"); }}
+        aria-label="Pixel2Align home"
+        className="hidden md:flex items-center pl-3 ml-auto shrink-0"
+      >
+        <Logo className="h-4 w-auto opacity-90 hover:opacity-100 transition-opacity" />
+      </a>
     </div>
   );
 }
