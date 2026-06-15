@@ -84,18 +84,28 @@ function Index() {
         />
       )}
       <TitleBar />
-      <div className="flex-1 flex min-h-0">
-        <Sidebar />
-        <main className="flex-1 min-w-0 flex flex-col bg-editor">
-          <EditorTabs />
-          <Breadcrumb />
-          <div ref={scrollRef} className="flex-1 overflow-y-auto">
-            <ActiveContent />
-            <Footer />
-          </div>
-          <Terminal />
-        </main>
-      </div>
+      {!ide.minimized && (
+        <div className="flex-1 flex min-h-0">
+          <Sidebar />
+          <main className="flex-1 min-w-0 flex flex-col bg-editor">
+            <EditorTabs />
+            <Breadcrumb />
+            <div ref={scrollRef} className="flex-1 overflow-y-auto">
+              <ActiveContent />
+              <Footer />
+            </div>
+            <Terminal />
+          </main>
+        </div>
+      )}
+      {ide.minimized && (
+        <button
+          onClick={ide.toggleMinimize}
+          className="flex-1 grid place-items-center bg-background text-muted-foreground hover:text-foreground transition-colors font-mono text-sm"
+        >
+          Window minimized — click to restore
+        </button>
+      )}
       <StatusBar />
       <MobileNav />
       <SettingsDrawer />
