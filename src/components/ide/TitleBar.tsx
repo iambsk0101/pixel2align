@@ -129,10 +129,37 @@ export function TitleBar() {
 
   return (
     <div ref={ref} className="h-9 bg-titlebar border-b border-border flex items-center px-3 select-none text-xs font-mono text-muted-foreground relative z-50 shrink-0">
-      <div className="hidden md:flex items-center gap-2 mr-4">
-        <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-        <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
-        <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+      <div className="hidden md:flex items-center gap-2 mr-4 group/lights">
+        <button
+          type="button"
+          aria-label="Close current tab"
+          title="Close tab"
+          onClick={() => {
+            if (ide.activeTab) { ide.closeTab(ide.activeTab); toast(`Closed ${ide.activeTab}`); }
+            else toast("No tab to close");
+          }}
+          className="h-3 w-3 rounded-full bg-[#ff5f57] grid place-items-center text-[8px] font-bold text-black/70 opacity-90 hover:opacity-100 transition"
+        >
+          <span className="opacity-0 group-hover/lights:opacity-100 transition">×</span>
+        </button>
+        <button
+          type="button"
+          aria-label={ide.minimized ? "Restore window" : "Minimize window"}
+          title={ide.minimized ? "Restore" : "Minimize"}
+          onClick={() => { ide.toggleMinimize(); toast(ide.minimized ? "Restored" : "Minimized"); }}
+          className="h-3 w-3 rounded-full bg-[#febc2e] grid place-items-center text-[8px] font-bold text-black/70 opacity-90 hover:opacity-100 transition"
+        >
+          <span className="opacity-0 group-hover/lights:opacity-100 transition leading-none">−</span>
+        </button>
+        <button
+          type="button"
+          aria-label={ide.maximized ? "Exit fullscreen" : "Enter fullscreen"}
+          title={ide.maximized ? "Exit fullscreen" : "Fullscreen"}
+          onClick={() => ide.toggleMaximize()}
+          className="h-3 w-3 rounded-full bg-[#28c840] grid place-items-center text-[8px] font-bold text-black/70 opacity-90 hover:opacity-100 transition"
+        >
+          <span className="opacity-0 group-hover/lights:opacity-100 transition leading-none">⤢</span>
+        </button>
       </div>
 
       <button
