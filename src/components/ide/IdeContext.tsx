@@ -7,6 +7,7 @@ export type FileId =
   | "skills"
   | "process"
   | "testimonials"
+  | "critique"
   | "contact"
   | "brief"
   | "terminal";
@@ -14,10 +15,10 @@ export type FileId =
 export type FileMeta = {
   id: FileId;
   name: string;
-  icon: string; // emoji or letter
-  iconColor: string; // tailwind text color or var
-  path: string; // breadcrumb path
-  lang: string; // status bar language
+  icon: string;
+  iconColor: string;
+  path: string;
+  lang: string;
 };
 
 export const FILES: Record<FileId, FileMeta> = {
@@ -27,6 +28,7 @@ export const FILES: Record<FileId, FileMeta> = {
   skills: { id: "skills", name: "skills.json", icon: "{ }", iconColor: "text-amber-300", path: "src/skills.json", lang: "JSON" },
   process: { id: "process", name: "process.ts", icon: "TS", iconColor: "text-blue-400", path: "src/process.ts", lang: "TypeScript" },
   testimonials: { id: "testimonials", name: "testimonials.css", icon: "#", iconColor: "text-fuchsia-400", path: "src/testimonials.css", lang: "CSS" },
+  critique: { id: "critique", name: "critique.ai", icon: "✦", iconColor: "text-emerald-400", path: "src/critique.ai", lang: "AI · Beta" },
   contact: { id: "contact", name: "contact.md", icon: "M↓", iconColor: "text-zinc-300", path: "src/contact.md", lang: "Markdown" },
   brief: { id: "brief", name: "Pixel2Align_Brief.pdf", icon: "PDF", iconColor: "text-red-400", path: "docs/Pixel2Align_Brief.pdf", lang: "PDF" },
   terminal: { id: "terminal", name: "terminal", icon: "▸_", iconColor: "text-emerald-400", path: "~/pixel2align", lang: "Shell" },
@@ -39,6 +41,7 @@ export const FILE_ORDER: FileId[] = [
   "skills",
   "process",
   "testimonials",
+  "critique",
   "contact",
   "brief",
 ];

@@ -25,14 +25,15 @@ import { Skills } from "@/components/sections/Skills";
 import { Process } from "@/components/sections/Process";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { Contact } from "@/components/sections/Contact";
+import { Critique } from "@/components/sections/Critique";
 import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Pixel2Align — Premium Web & UI Design that Converts" },
-      { name: "description", content: "Pixel2Align is a premium Web & UI design studio. Editorial design, conversion strategy, and pixel-precise builds." },
+      { title: "Pixel2Align — Premium Web & UI Design + Free AI Site Critique" },
+      { name: "description", content: "Pixel2Align is a premium Web & UI design studio. Editorial design, conversion strategy, pixel-precise builds. Get a free AI design critique of your live site." },
     ],
   }),
   component: () => (
@@ -54,6 +55,7 @@ function ActiveContent() {
     case "skills": return <Skills />;
     case "process": return <Process />;
     case "testimonials": return <Testimonials />;
+    case "critique": return <Critique />;
     case "contact": return <Contact />;
     default: return <WelcomeScreen />;
   }

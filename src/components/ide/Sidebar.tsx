@@ -26,6 +26,8 @@ const ACTIVITY = [
   { id: "ai", Icon: Sparkles, label: "Copilot" },
 ];
 
+import { Wand2 } from "lucide-react";
+
 const FILE_ICONS: Record<string, { Icon: any; color: string }> = {
   hero: { Icon: FileCode2, color: "text-sky-400" },
   about: { Icon: FileType, color: "text-orange-400" },
@@ -33,6 +35,7 @@ const FILE_ICONS: Record<string, { Icon: any; color: string }> = {
   skills: { Icon: FileJson, color: "text-amber-300" },
   process: { Icon: FileType2, color: "text-blue-400" },
   testimonials: { Icon: Hash, color: "text-fuchsia-400" },
+  critique: { Icon: Wand2, color: "text-emerald-400" },
   contact: { Icon: FileText, color: "text-zinc-300" },
   brief: { Icon: FileText, color: "text-red-400" },
 };
