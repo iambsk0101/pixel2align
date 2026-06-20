@@ -27,6 +27,7 @@ import {
   Check,
 } from "lucide-react";
 import { Logo } from "@/components/Logo";
+import { NowPlaying } from "./NowPlaying";
 
 type MenuItem =
   | { type: "item"; label: string; shortcut?: string; onClick: () => void; disabled?: boolean; icon?: React.ReactNode }
@@ -216,16 +217,17 @@ export function TitleBar() {
         </button>
       </div>
 
-      <div className="flex-1 flex justify-center">
+      <div className="flex-1 flex justify-center items-center gap-3 min-w-0 px-2">
         <button
           onClick={ide.openPalette}
-          className="hidden sm:flex items-center gap-2 px-3 py-1 rounded bg-background/60 border border-border min-w-[280px] justify-center hover:border-accent transition-colors"
+          className="hidden sm:flex items-center gap-2 px-3 py-1 rounded bg-background/60 border border-border min-w-[220px] max-w-[320px] justify-center hover:border-accent transition-colors shrink"
         >
           <Search className="h-3 w-3" />
-          <span>pixel2align : portfolio</span>
+          <span className="truncate">pixel2align : portfolio</span>
           <kbd className="ml-2 px-1.5 py-0.5 rounded bg-surface border border-border text-[10px]">Ctrl</kbd>
           <kbd className="px-1.5 py-0.5 rounded bg-surface border border-border text-[10px]">P</kbd>
         </button>
+        <NowPlaying />
       </div>
 
       <a
