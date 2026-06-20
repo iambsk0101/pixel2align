@@ -321,6 +321,34 @@
   .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
   .animate-blink { animation: blink 1s steps(1) infinite; }
+
+  /* ---- Scroll-driven hero word morph (progressive enhancement) ---- */
+  /* Falls back gracefully — only fires on Chromium/Edge with scroll-timeline. */
+  @supports (animation-timeline: view()) {
+    .hero-word {
+      display: inline-block;
+      animation: hero-morph linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 60%;
+      transform-origin: left center;
+      will-change: transform, letter-spacing, filter;
+    }
+    .hero-stage {
+      animation: hero-stage-fade linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 80%;
+    }
+  }
+
+  @keyframes hero-morph {
+    0%   { transform: translateY(0) scale(1);     letter-spacing: 0;      filter: blur(0); }
+    60%  { transform: translateY(-2vh) scale(.985); letter-spacing: -0.012em; filter: blur(0.3px); }
+    100% { transform: translateY(-6vh) scale(.92);  letter-spacing: -0.028em; filter: blur(1.2px); opacity: .65; }
+  }
+  @keyframes hero-stage-fade {
+    0%, 40% { opacity: 1; }
+    100%    { opacity: .55; }
+  }
 }
 
 @media (pointer: fine) {
