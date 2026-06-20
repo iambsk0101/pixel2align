@@ -15,6 +15,7 @@ import {
   Hash,
   FileJson,
   FileType2,
+  Wand2,
 } from "lucide-react";
 
 const ACTIVITY = [
@@ -26,7 +27,6 @@ const ACTIVITY = [
   { id: "ai", Icon: Sparkles, label: "Copilot" },
 ];
 
-import { Wand2 } from "lucide-react";
 
 const FILE_ICONS: Record<string, { Icon: any; color: string }> = {
   hero: { Icon: FileCode2, color: "text-sky-400" },
