@@ -1,0 +1,5 @@
+- [x] Add a cursor-reactive grid with click ripples and idle animation sleep.
+- [x] Add a touch-aware pastel ink trail that respects reduced-motion preferences.
+- [x] Add cursor-following, blinking eyes beside the portfolio headline.
+- [x] Replace the bento feature area with a responsive three-project accordion while retaining all remaining project screenshots.
+- [ ] Verify desktop and mobile interactions, visual rendering, and current preview build.

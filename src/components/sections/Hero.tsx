@@ -3,6 +3,7 @@ import { useIde } from "@/components/ide/IdeContext";
 import { useEffect, useState } from "react";
 import { ArrowRight, FolderGit2, User, Mail, FileText, Sparkles, Wand2 } from "lucide-react";
 import { HeroShader } from "@/components/ide/HeroShader";
+import { GooglyEyes } from "@/components/ide/GooglyEyes";
 
 const TYPED = "Designing premium websites that convert";
 
@@ -38,6 +39,7 @@ export function Hero() {
             <span className="hero-word">Pixel<span className="text-accent">2</span></span>
             <br />
             <span className="hero-word text-accent">Align</span>
+            <GooglyEyes />
           </h1>
         </Reveal>
 
