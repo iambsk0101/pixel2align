@@ -12,42 +12,20 @@ import v2vConvert from "@/assets/projects/v2v-convert.jpg";
 import { ArrowUpRight } from "lucide-react";
 import { CaseStudyModal, type CaseStudy } from "@/components/ide/CaseStudyModal";
 
-/**
- * Bento span tokens — kept tiny and intentional so the grid stays calm
- * on desktop and stacks perfectly on mobile.
- * - "hero"   : 2 cols × 2 rows  (big feature card, top-left)
- * - "wide"   : 2 cols × 1 row
- * - "tall"   : 1 col  × 2 rows
- * - default  : 1 col  × 1 row
- */
-type BentoSpan = "hero" | "wide" | "tall" | "square";
-type Project = CaseStudy & { span: BentoSpan };
-
-const projects: Project[] = [
-  { no: "01", name: "Anugraha Bhimtal", category: "Hospitality · Lakeside Resort", year: "2025", blurb: "Editorial resort site that turns lakeside calm into bookings — full-bleed photography, story-led scroll, friction-free inquiry.", tags: ["Web Design", "Branding", "CMS"], image: anugraha, url: "#", span: "hero", problem: "A boutique lakeside property with strong visuals but a generic site that wasn't converting browsers into bookings.", approach: "Editorial typography, full-bleed photography, story-led scroll, and a friction-free booking inquiry flow.", outcome: "Brand finally feels as premium as the property. Inquiries up, drop-off down." },
-  { no: "02", name: "SpaceionDesign", category: "Branding · Interior Studio", year: "2024", blurb: "Luxury identity and website for a high-end interior studio.", tags: ["Identity", "Web"], image: spaceion, url: "#", span: "tall" },
-  { no: "03", name: "View2Value", category: "SaaS · Business Site", year: "2025", blurb: "A confident business site that positions value, not features.", tags: ["Web", "Copy"], image: v2v, url: "#", span: "wide" },
-  { no: "04", name: "Dilip's Retreat", category: "Hospitality · Mountain Retreat", year: "2025", blurb: "Warm, story-led design with parallax storytelling.", tags: ["Web Design", "UX"], image: dilip, url: "#", span: "square" },
-  { no: "05", name: "The Moonlight Homestay", category: "Hospitality · Homestay", year: "2024", blurb: "Intimate, image-first layout that sells the experience.", tags: ["Brand", "Web Design"], image: moonlight, url: "#", span: "square" },
-  { no: "06", name: "Adibaba Travels", category: "Travel · Booking Platform", year: "2024", blurb: "A fast, trustworthy travel site engineered around clear CTAs.", tags: ["UX", "Conversion"], image: adibaba, url: "#", span: "wide" },
-  { no: "07", name: "PH Store", category: "Ecommerce · Lifestyle", year: "2024", blurb: "A polished storefront engineered for repeat purchase.", tags: ["Ecommerce", "Shopify"], image: phstore, url: "#", span: "tall" },
-  { no: "08", name: "View2Value Bio", category: "Funnel · Bio Link", year: "2025", blurb: "A bio link funnel optimised for one click, one outcome.", tags: ["Funnel", "Mobile"], image: v2vBio, url: "#", span: "square" },
-  { no: "09", name: "View2Value Convert", category: "Landing · Paid Traffic", year: "2025", blurb: "A landing page tuned for paid traffic and ruthless A/B iteration.", tags: ["CRO", "Landing"], image: v2vConvert, url: "#", span: "square" },
+const featured: CaseStudy[] = [
+  { no: "01", name: "Anugraha Bhimtal", category: "Hospitality · Lakeside Resort", year: "2025", blurb: "An editorial resort website that turns lakeside calm into a clear, considered booking journey.", tags: ["Web Design", "Branding", "CMS"], image: anugraha, url: "https://www.anugrahabhimtal.com/", problem: "A boutique lakeside property needed a digital presence that captured the experience and made booking feel effortless.", approach: "Editorial typography, immersive photography, and a concise inquiry journey built around the stay.", outcome: "A clearer, more distinctive online experience for a lakeside retreat." },
+  { no: "02", name: "SpaceionDesign", category: "Branding · Interior Studio", year: "2024", blurb: "A confident digital identity and portfolio experience for a high-end interior design studio.", tags: ["Identity", "Web Design", "Portfolio"], image: spaceion, url: "https://spaceiondesign.com/", problem: "The studio needed a stronger way to present its work and design point of view online.", approach: "A restrained visual system gives interiors room to lead, with a clear path through the portfolio.", outcome: "A polished website that reflects the studio's considered approach." },
+  { no: "03", name: "View2Value", category: "SaaS · Business Website", year: "2025", blurb: "A focused business website that makes the value proposition easy to understand and act on.", tags: ["Web Design", "Messaging", "SaaS"], image: v2v, url: "https://view2value.online/", problem: "The business needed a clearer online presentation for its service and audience.", approach: "A direct page structure and purposeful calls to action bring the main message forward.", outcome: "A more focused digital front door for the View2Value brand." },
 ];
 
-const SPAN_CLASS: Record<BentoSpan, string> = {
-  hero: "md:col-span-2 md:row-span-2",
-  wide: "md:col-span-2 md:row-span-1",
-  tall: "md:col-span-1 md:row-span-2",
-  square: "md:col-span-1 md:row-span-1",
-};
-
-const ASPECT_CLASS: Record<BentoSpan, string> = {
-  hero: "aspect-[16/11]",
-  wide: "aspect-[16/8]",
-  tall: "aspect-[3/4]",
-  square: "aspect-[4/3]",
-};
+const additionalProjects: CaseStudy[] = [
+  { no: "04", name: "Dilip's Retreat", category: "Hospitality · Mountain Retreat", year: "2025", blurb: "A warm, story-led retreat website shaped around its mountain setting.", tags: ["Web Design", "UX"], image: dilip, url: "https://dilipsretreat.com/" },
+  { no: "05", name: "The Moonlight Homestay", category: "Hospitality · Homestay", year: "2024", blurb: "An image-first homestay experience designed to make the stay feel tangible.", tags: ["Brand", "Web Design"], image: moonlight, url: "https://themoonlighthomestay.in/" },
+  { no: "06", name: "Adibaba Travels", category: "Travel · Booking Platform", year: "2024", blurb: "A clear, welcoming travel website built around discovery and inquiry.", tags: ["UX", "Conversion"], image: adibaba, url: "https://adibabatravels.com/" },
+  { no: "07", name: "PH Store", category: "Ecommerce · Lifestyle", year: "2024", blurb: "A streamlined storefront for browsing and shopping lifestyle products.", tags: ["Ecommerce", "Shopify"], image: phstore, url: "http://phstore.in/" },
+  { no: "08", name: "View2Value Bio", category: "Funnel · Bio Link", year: "2025", blurb: "A compact link page that keeps the next step clear on mobile.", tags: ["Funnel", "Mobile"], image: v2vBio, url: "https://bio.view2value.online/" },
+  { no: "09", name: "View2Value Convert", category: "Landing · Paid Traffic", year: "2025", blurb: "A focused landing page experience designed around a single conversion goal.", tags: ["CRO", "Landing"], image: v2vConvert, url: "https://convert.view2value.online/" },
+];
 
 export function Work() {
   const [open, setOpen] = useState<Project | null>(null);

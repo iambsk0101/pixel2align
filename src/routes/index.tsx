@@ -15,6 +15,7 @@ import { WelcomeScreen } from "@/components/ide/WelcomeScreen";
 import { CopilotPanel } from "@/components/ide/Copilot";
 import { BootLoader } from "@/components/ide/BootLoader";
 import { CustomCursor } from "@/components/ide/CustomCursor";
+import { CursorGrid, FluidCursor } from "@/components/ide/CursorEffects";
 import { KonamiUnlock } from "@/components/ide/KonamiUnlock";
 import { HireMeToast } from "@/components/ide/HireMeToast";
 import { AnalyticsTracker } from "@/components/ide/AnalyticsTracker";
@@ -85,6 +86,8 @@ function Index() {
           }}
         />
       )}
+      <CursorGrid />
+      <FluidCursor />
       <TitleBar />
       {!ide.minimized && (
         <div className="flex-1 flex min-h-0">
